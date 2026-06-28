@@ -21,12 +21,12 @@ public class Mesto implements OpstiDomenskiObjekat{
     
      public Mesto( String nazivMesta) {
         
-        this.nazivMesta = nazivMesta;
+        setNazivMesta(nazivMesta);
     }
 
     public Mesto(int idMesto, String nazivMesta) {
-        this.idMesto = idMesto;
-        this.nazivMesta = nazivMesta;
+    	setIdMesto(idMesto);
+        setNazivMesta(nazivMesta);
     }
 
     public int getIdMesto() {
@@ -34,6 +34,11 @@ public class Mesto implements OpstiDomenskiObjekat{
     }
 
     public void setIdMesto(int idMesto) {
+ 
+    	if (idMesto <= 0) {
+            throw new IllegalArgumentException();
+        }
+    	
         this.idMesto = idMesto;
     }
 
@@ -42,6 +47,20 @@ public class Mesto implements OpstiDomenskiObjekat{
     }
 
     public void setNazivMesta(String nazivMesta) {
+    	
+       	if (nazivMesta == null)
+    			throw new NullPointerException();
+    		
+       	if (nazivMesta.length() > 50)
+    			throw new IllegalArgumentException();
+       	
+        if (!nazivMesta.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
+            throw new IllegalArgumentException();
+       	
+       	if(nazivMesta.isBlank()) {
+       		throw new IllegalArgumentException();
+       	}
+    		
         this.nazivMesta = nazivMesta;
     }
 
@@ -51,30 +70,24 @@ public class Mesto implements OpstiDomenskiObjekat{
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
+	public int hashCode() {
+		return Objects.hash(nazivMesta);
+	}
+
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Mesto other = (Mesto) obj;
-        if (this.idMesto != other.idMesto) {
-            return false;
-        }
-        return Objects.equals(this.nazivMesta, other.nazivMesta);
-    }
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mesto other = (Mesto) obj;
+		return Objects.equals(nazivMesta, other.nazivMesta);
+	}
 
-    @Override
+	@Override
     public String vratiNazivTabele() {
        return "mesto";
     }

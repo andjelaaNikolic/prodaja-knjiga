@@ -19,19 +19,19 @@ public class Kupac implements OpstiDomenskiObjekat{
     }
     
     public Kupac( String ime, String prezime, String brojTelefona, Mesto mesto) {
-        this.ime = ime;
-        this.prezime = prezime;
-        this.brojTelefona = brojTelefona;
-        this.mesto = mesto;
+    	setIme(ime);
+    	setPrezime(prezime);
+    	setBrojTelefona(brojTelefona);
+    	setMesto(mesto);
     }
 
 
     public Kupac(int idKupac, String ime, String prezime, String brojTelefona, Mesto mesto) {
-        this.idKupac = idKupac;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.brojTelefona = brojTelefona;
-        this.mesto = mesto;
+    	setIdKupac(idKupac);
+    	setIme(ime);
+    	setPrezime(prezime);
+    	setBrojTelefona(brojTelefona);
+    	setMesto(mesto);
     }
 
     public int getIdKupac() {
@@ -39,6 +39,9 @@ public class Kupac implements OpstiDomenskiObjekat{
     }
 
     public void setIdKupac(int idKupac) {
+    	if(idKupac<=0) {
+    		throw new IllegalArgumentException();
+    	}
         this.idKupac = idKupac;
     }
 
@@ -47,6 +50,18 @@ public class Kupac implements OpstiDomenskiObjekat{
     }
 
     public void setIme(String ime) {
+    	if(ime==null) {
+    		throw new NullPointerException();
+    	}
+    	
+    	if(ime.length()>50) 
+    		throw new IllegalArgumentException();
+    	
+    	if (ime.isBlank())
+            throw new IllegalArgumentException();
+    	
+        if (!ime.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
+            throw new IllegalArgumentException();
         this.ime = ime;
     }
 
@@ -55,6 +70,18 @@ public class Kupac implements OpstiDomenskiObjekat{
     }
 
     public void setPrezime(String prezime) {
+    	if(prezime==null) 
+    		throw new NullPointerException();
+    	
+    	if(prezime.length()>50) 
+    		throw new IllegalArgumentException();
+    	
+    	if (prezime.isBlank())
+            throw new IllegalArgumentException();
+    	
+        if (!prezime.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
+            throw new IllegalArgumentException();
+    	
         this.prezime = prezime;
     }
 
@@ -63,6 +90,18 @@ public class Kupac implements OpstiDomenskiObjekat{
     }
 
     public void setBrojTelefona(String brojTelefona) {
+    	if(brojTelefona==null) {
+    		throw new NullPointerException();
+    	}
+    	if(brojTelefona.length()>10) {
+    		throw new IllegalArgumentException();
+    	}
+    	if (!brojTelefona.matches("[0-9]+"))
+            throw new IllegalArgumentException();
+    	
+    	if (brojTelefona.isBlank())
+            throw new IllegalArgumentException();
+    	
         this.brojTelefona = brojTelefona;
     }
 
@@ -71,6 +110,8 @@ public class Kupac implements OpstiDomenskiObjekat{
     }
 
     public void setMesto(Mesto mesto) {
+    	if(mesto==null)
+    		throw new NullPointerException();
         this.mesto = mesto;
     }
 
@@ -80,39 +121,26 @@ public class Kupac implements OpstiDomenskiObjekat{
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
+	public int hashCode() {
+		return Objects.hash(brojTelefona, ime, prezime);
+	}
+
+
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Kupac other = (Kupac) obj;
-        if (this.idKupac != other.idKupac) {
-            return false;
-        }
-        if (!Objects.equals(this.ime, other.ime)) {
-            return false;
-        }
-        if (!Objects.equals(this.prezime, other.prezime)) {
-            return false;
-        }
-        if (!Objects.equals(this.brojTelefona, other.brojTelefona)) {
-            return false;
-        }
-        return Objects.equals(this.mesto, other.mesto);
-    }
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Kupac other = (Kupac) obj;
+		return Objects.equals(brojTelefona, other.brojTelefona) && Objects.equals(ime, other.ime)
+				&& Objects.equals(prezime, other.prezime);
+	}
 
-    @Override
+	@Override
     public String vratiNazivTabele() {
         return "kupac";
     }
@@ -186,8 +214,6 @@ public class Kupac implements OpstiDomenskiObjekat{
             System.err.println("Greška prilikom obrade podataka iz ResultSet-a kod vraćanja kupaca: " + ex.getMessage());
             return null;
         }
-        
-        
         
         
     }

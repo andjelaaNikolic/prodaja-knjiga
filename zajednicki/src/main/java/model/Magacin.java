@@ -1,41 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import java.sql.SQLException;
 
-/**
- *
- * @author Andjela
- */
 public class Magacin implements OpstiDomenskiObjekat {
 
-    
     private int idMagacin;
-    
     private String naziv;
-    
     private String adresa;
-    
     private List<Knjiga> knjige;
 
     public Magacin() {
     }
 
-    public Magacin(int idMagacin, String naziv, String adresa) {
-        this.idMagacin = idMagacin;
+    public Magacin(String naziv, String adresa) {
         this.naziv = naziv;
         this.adresa = adresa;
     }
-    
-      public Magacin(String naziv, String adresa) {
+
+    public Magacin(int idMagacin, String naziv, String adresa) {
+        this.idMagacin = idMagacin;
         this.naziv = naziv;
         this.adresa = adresa;
     }
@@ -45,6 +32,8 @@ public class Magacin implements OpstiDomenskiObjekat {
     }
 
     public void setIdMagacin(int idMagacin) {
+        if (idMagacin <= 0)
+            throw new IllegalArgumentException();
         this.idMagacin = idMagacin;
     }
 
@@ -53,6 +42,13 @@ public class Magacin implements OpstiDomenskiObjekat {
     }
 
     public void setNaziv(String naziv) {
+        if (naziv == null)
+            throw new NullPointerException();
+        if (naziv.length() > 20)
+            throw new IllegalArgumentException();
+        if(naziv.isBlank()) {
+        	throw new IllegalArgumentException();
+        }
         this.naziv = naziv;
     }
 
@@ -61,6 +57,10 @@ public class Magacin implements OpstiDomenskiObjekat {
     }
 
     public void setAdresa(String adresa) {
+        if (adresa == null)
+            throw new NullPointerException();
+        if (adresa.length() > 50)
+            throw new IllegalArgumentException();
         this.adresa = adresa;
     }
 
@@ -74,55 +74,42 @@ public class Magacin implements OpstiDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "Magacin{" + "naziv=" + naziv + ", adresa=" + adresa + '}';
+        return naziv;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        return hash;
+        return Objects.hash(naziv);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final Magacin other = (Magacin) obj;
+        Magacin other = (Magacin) obj;
         return Objects.equals(this.naziv, other.naziv);
     }
-    
-    
-    
-    
-    
+
     @Override
     public String vratiNazivTabele() {
-         return "magacin";
+        return "magacin";
     }
 
     @Override
     public List<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-         List<OpstiDomenskiObjekat> lista = new ArrayList<>();
-        while(rs.next()){
-
+        List<OpstiDomenskiObjekat> lista = new ArrayList<>();
+        while (rs.next()) {
             int idMagacin = rs.getInt("magacin.idMagacin");
             String naziv = rs.getString("magacin.naziv");
             String adresa = rs.getString("magacin.adresa");
-           
-            Magacin m = new Magacin(idMagacin,naziv,adresa);
+            Magacin m = new Magacin(idMagacin, naziv, adresa);
             lista.add(m);
-            
         }
-        
         return lista;
-    
     }
 
     @Override
@@ -132,12 +119,12 @@ public class Magacin implements OpstiDomenskiObjekat {
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-       return "'"+naziv+"','"+adresa+"','";
+        return "'" + naziv + "','" + adresa + "'";
     }
 
     @Override
     public String vratiPrimarniKljuc() {
-       return "magacin.idMagacin="+idMagacin;
+        return "magacin.idMagacin=" + idMagacin;
     }
 
     @Override
@@ -145,11 +132,10 @@ public class Magacin implements OpstiDomenskiObjekat {
         Magacin magacin = null;
         try {
             while (rs.next()) {
-
                 int idMagacin = rs.getInt("magacin.idMagacin");
                 String naziv = rs.getString("magacin.naziv");
                 String adresa = rs.getString("magacin.adresa");
-                magacin = new Magacin(idMagacin, naziv,adresa);
+                magacin = new Magacin(idMagacin, naziv, adresa);
             }
             return magacin;
         } catch (SQLException ex) {
@@ -160,8 +146,6 @@ public class Magacin implements OpstiDomenskiObjekat {
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-            return "naziv='"+naziv+"', adresa='"+adresa+"'";
+        return "naziv='" + naziv + "', adresa='" + adresa + "'";
     }
-    
 }
-

@@ -50,12 +50,12 @@ public class KreirajKupacController {
 
                 if (ime.trim().length() > 50 || prezime.trim().length() > 50 || brojTelefona.trim().length()>11 || brojTelefona.trim().length()<10) {
 
-                    if (ime.trim().length() > 30) {
-                        JOptionPane.showMessageDialog(kkf, "Ime moze sadrzati maksimalno 30 slova.", "Upozorenje!", JOptionPane.WARNING_MESSAGE);
+                    if (ime.trim().length() > 50) {
+                        JOptionPane.showMessageDialog(kkf, "Ime moze sadrzati maksimalno 50 slova.", "Upozorenje!", JOptionPane.WARNING_MESSAGE);
 
                     }
-                    if (prezime.trim().length() > 30) {
-                        JOptionPane.showMessageDialog(kkf, "Prezime moze sadrzati maksimalno 30 slova.", "Upozorenje!", JOptionPane.WARNING_MESSAGE);
+                    if (prezime.trim().length() > 50) {
+                        JOptionPane.showMessageDialog(kkf, "Prezime moze sadrzati maksimalno 50 slova.", "Upozorenje!", JOptionPane.WARNING_MESSAGE);
 
                     }
                     
@@ -158,11 +158,11 @@ public class KreirajKupacController {
 
                 if (ime.trim().length() > 50 || prezime.trim().length() > 50 || brojTelefona.trim().length()>10 || brojTelefona.trim().length()<10) {
 
-                    if (ime.trim().length() > 30) {
+                    if (ime.trim().length() > 50) {
                         JOptionPane.showMessageDialog(kkf, "Ime može sadržati maksimalno 50 slova.", "Upozorenje!", JOptionPane.WARNING_MESSAGE);
 
                     }
-                    if (prezime.trim().length() > 30) {
+                    if (prezime.trim().length() > 50) {
                         JOptionPane.showMessageDialog(kkf, "Prezime može sadržati maksimalno 50 slova.", "Upozorenje!", JOptionPane.WARNING_MESSAGE);
 
                     }

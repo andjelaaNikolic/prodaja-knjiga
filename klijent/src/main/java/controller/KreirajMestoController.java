@@ -13,7 +13,7 @@ import model.Mesto;
 
 /**
  *
- * @author Ljilja
+ * @author Andjela
  */
 public class KreirajMestoController {
     private Mesto m;
