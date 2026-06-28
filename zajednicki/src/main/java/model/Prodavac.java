@@ -21,21 +21,21 @@ public class Prodavac implements OpstiDomenskiObjekat{
     
  
     public Prodavac(int idProdavac, String ime, String prezime, String korisnickoIme, String sifra, String email) {
-        this.idProdavac = idProdavac;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.korisnickoIme = korisnickoIme;
-        this.sifra = sifra;
-        this.email = email;
+    	setIdProdavac(idProdavac);
+    	setIme(ime);
+    	setPrezime(prezime);
+    	setKorisnickoIme(korisnickoIme);
+    	setSifra(sifra);
+    	setEmail(email);
         this.prss=new ArrayList<>();
     }
 
     public Prodavac(String ime, String prezime, String korisnickoIme, String sifra, String email) {
-        this.ime = ime;
-        this.prezime = prezime;
-        this.korisnickoIme = korisnickoIme;
-        this.sifra = sifra;
-        this.email = email;
+    	setIme(ime);
+    	setPrezime(prezime);
+    	setKorisnickoIme(korisnickoIme);
+    	setSifra(sifra);
+    	setEmail(email);
         this.prss=new ArrayList<>();
     }
 
@@ -44,6 +44,8 @@ public class Prodavac implements OpstiDomenskiObjekat{
     }
 
     public void setPrss(List<PrSS> prss) {
+    	if(prss==null)
+    		throw new NullPointerException();
         this.prss = prss;
     }
 
@@ -53,6 +55,8 @@ public class Prodavac implements OpstiDomenskiObjekat{
     }
 
     public void setIdProdavac(int idProdavac) {
+    	 if (idProdavac <= 0)
+             throw new IllegalArgumentException();
         this.idProdavac = idProdavac;
     }
 
@@ -61,6 +65,17 @@ public class Prodavac implements OpstiDomenskiObjekat{
     }
 
     public void setIme(String ime) {
+    	if(ime==null) 
+    		throw new NullPointerException();
+    	
+    	if(ime.length()>50) 
+    		throw new IllegalArgumentException();
+    	
+    	if (ime.isBlank())
+            throw new IllegalArgumentException();
+    	
+        if (!ime.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
+            throw new IllegalArgumentException();
         this.ime = ime;
     }
 
@@ -69,6 +84,17 @@ public class Prodavac implements OpstiDomenskiObjekat{
     }
 
     public void setPrezime(String prezime) {
+    	if(prezime==null) 
+    		throw new NullPointerException();
+    	
+    	if(prezime.length()>50) 
+    		throw new IllegalArgumentException();
+    	
+    	if (prezime.isBlank())
+            throw new IllegalArgumentException();
+    	
+        if (!prezime.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
+            throw new IllegalArgumentException();
         this.prezime = prezime;
     }
 
@@ -77,6 +103,15 @@ public class Prodavac implements OpstiDomenskiObjekat{
     }
 
     public void setKorisnickoIme(String korisnickoIme) {
+    	if(korisnickoIme==null) 
+    		throw new NullPointerException();
+    	
+    	if(korisnickoIme.length()>50) 
+    		throw new IllegalArgumentException();
+    	
+    	if (korisnickoIme.isBlank())
+            throw new IllegalArgumentException();
+    	
         this.korisnickoIme = korisnickoIme;
     }
 
@@ -84,17 +119,32 @@ public class Prodavac implements OpstiDomenskiObjekat{
         return sifra;
     }
 
-    public void setSifra(String sifra) {
-        this.sifra = sifra;
-    }
+	public void setSifra(String sifra) {
+
+		if (sifra == null)
+			throw new NullPointerException();
+		if (sifra.isBlank())
+			throw new IllegalArgumentException();
+		if (sifra.length() > 50)
+			throw new IllegalArgumentException();
+		this.sifra = sifra;
+	}
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		if (email == null)
+			throw new NullPointerException();
+		if (email.isBlank())
+			throw new IllegalArgumentException();
+		if (email.length() > 50)
+			throw new IllegalArgumentException();
+		if (!email.matches("^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"))
+			throw new IllegalArgumentException();
+		this.email = email;
+	}
 
     @Override
     public String toString() {

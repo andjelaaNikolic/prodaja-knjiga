@@ -42,8 +42,8 @@ public class KreirajKnjiguController {
                     return;
                 }
                 int godinaIzdanja = Integer.parseInt(kkf.getjTextFieldGodinaIzdanja().getText());
-                if(godinaIzdanja<2017){
-                    JOptionPane.showMessageDialog(kkf, "Godina izdanja mora da bude veca ili jednaka 2017", "Upozorenje", JOptionPane.ERROR_MESSAGE);
+                if(godinaIzdanja<1900){
+                    JOptionPane.showMessageDialog(kkf, "Godina izdanja mora da bude veca ili jednaka 1900", "Upozorenje", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 double cena = Double.parseDouble(kkf.getjTextFieldCena().getText());
@@ -135,8 +135,8 @@ public class KreirajKnjiguController {
                     return;
                 }
                 int godinaIzdanja = Integer.parseInt(kkf.getjTextFieldGodinaIzdanja().getText());
-                if(godinaIzdanja<2017){
-                    JOptionPane.showMessageDialog(kkf, "Godina izdanja mora da bude veca ili jednaka 2017", "Upozorenje", JOptionPane.ERROR_MESSAGE);
+                if(godinaIzdanja<1900){
+                    JOptionPane.showMessageDialog(kkf, "Godina izdanja mora da bude veca ili jednaka 1900", "Upozorenje", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 double cena = Double.parseDouble(kkf.getjTextFieldCena().getText());

@@ -35,6 +35,8 @@ public class PrSS implements OpstiDomenskiObjekat{
     }
 
     public void setStrSprema(StrSprema strSprema) {
+    	if(strSprema==null)
+    		throw new NullPointerException();
         this.strSprema = strSprema;
     }
 
@@ -43,6 +45,8 @@ public class PrSS implements OpstiDomenskiObjekat{
     }
 
     public void setProdavac(Prodavac prodavac) {
+    	if(prodavac==null)
+    		throw new NullPointerException();
         this.prodavac = prodavac;
     }
 
@@ -51,6 +55,10 @@ public class PrSS implements OpstiDomenskiObjekat{
     }
 
     public void setDatumSticanja(Date datumSticanja) {
+    	if (datumSticanja == null)
+            throw new NullPointerException();
+        if (datumSticanja.after(new Date()))
+            throw new IllegalArgumentException();
         this.datumSticanja = datumSticanja;
     }
 
@@ -59,6 +67,14 @@ public class PrSS implements OpstiDomenskiObjekat{
     }
 
     public void setInstitucija(String institucija) {
+    	if(institucija==null) 
+    		throw new NullPointerException();
+    	
+    	if(institucija.length()>50) 
+    		throw new IllegalArgumentException();
+    	
+    	if (institucija.isBlank())
+            throw new IllegalArgumentException();
         this.institucija = institucija;
     }
 
@@ -67,6 +83,14 @@ public class PrSS implements OpstiDomenskiObjekat{
     }
 
     public void setGrad(String grad) {
+    	if(grad==null)
+    		throw new NullPointerException();
+    	if(grad.isBlank())
+    		throw new IllegalArgumentException();
+    	if(grad.length()>50)
+    		throw new IllegalArgumentException();
+        if (!grad.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
+            throw new IllegalArgumentException();
         this.grad = grad;
     }
 

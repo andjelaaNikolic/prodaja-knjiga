@@ -24,20 +24,22 @@ public class Racun implements OpstiDomenskiObjekat {
     public Racun() {
     }
     
- public Racun(Date datum, double ukupanIznos, Prodavac prodavac, Kupac kupac) {
-        this.datum = datum;
-        this.ukupanIznos = ukupanIznos;
-        this.prodavac = prodavac;
-        this.kupac = kupac;
-    }
+	public Racun(Date datum, double ukupanIznos, Prodavac prodavac, Kupac kupac) {
+		setDatum(datum);
+		setUkupanIznos(ukupanIznos);
+		setProdavac(prodavac);
+		setKupac(kupac);
 
-    public Racun(int idRacun, Date datum, double ukupanIznos, Prodavac prodavac, Kupac kupac) {
-        this.idRacun = idRacun;
-        this.datum = datum;
-        this.ukupanIznos = ukupanIznos;
-        this.prodavac = prodavac;
-        this.kupac = kupac;
-    }
+	}
+
+	public Racun(int idRacun, Date datum, double ukupanIznos, Prodavac prodavac, Kupac kupac) {
+		setIdRacun(idRacun);
+		setDatum(datum);
+		setUkupanIznos(ukupanIznos);
+		setProdavac(prodavac);
+		setKupac(kupac);
+
+	}
 
     @Override
     public String vratiNazivTabele() {
@@ -146,6 +148,8 @@ public class Racun implements OpstiDomenskiObjekat {
     }
 
     public void setIdRacun(int idRacun) {
+    	if(idRacun<=0)
+    		throw new IllegalArgumentException();
         this.idRacun = idRacun;
     }
 
@@ -153,12 +157,12 @@ public class Racun implements OpstiDomenskiObjekat {
         return datum;
     }
 
-    public void setDatum(Date datum) throws Exception {
-        if (datum.after(new Date())) {
-            throw new Exception("Datum ne moze biti u budućnosti.");
-        } else {
-            this.datum = datum;
-        }
+    public void setDatum(Date datum) {
+        if (datum.after(new Date())) 
+            throw new IllegalArgumentException();
+        if(datum==null)
+        	throw new NullPointerException();
+
         this.datum = datum;
     }
 
@@ -167,6 +171,8 @@ public class Racun implements OpstiDomenskiObjekat {
     }
 
     public void setUkupanIznos(double ukupanIznos) {
+    	if(ukupanIznos<=0)
+    		throw new IllegalArgumentException();
         this.ukupanIznos = ukupanIznos;
     }
 
@@ -175,6 +181,8 @@ public class Racun implements OpstiDomenskiObjekat {
     }
 
     public void setProdavac(Prodavac prodavac) {
+    	if(prodavac==null)
+    		throw new NullPointerException();
         this.prodavac = prodavac;
     }
 
@@ -183,6 +191,8 @@ public class Racun implements OpstiDomenskiObjekat {
     }
 
     public void setKupac(Kupac kupac) {
+    	if(kupac==null)
+    		throw new NullPointerException();
         this.kupac = kupac;
     }
 
@@ -194,13 +204,6 @@ public class Racun implements OpstiDomenskiObjekat {
         this.stavke = stavka;
     }
 
-  
-    
-    
-    
-    
-    
-    
-    
+   
     
 }

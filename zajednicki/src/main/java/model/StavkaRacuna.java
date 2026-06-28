@@ -20,21 +20,15 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
     public StavkaRacuna() {
     }
     
-    public StavkaRacuna( int kolicina, Knjiga knjiga, double iznos, double jedinicnaCena) {
-    this.kolicina = kolicina;
-    this.knjiga = knjiga;
-    this.iznos = iznos;
-    this.racun = racun;
-    this.jedinicnaCena = jedinicnaCena;
-    }
 
     public StavkaRacuna(int rb, int kolicina, Knjiga knjiga, double iznos, Racun racun, double jedinicnaCena) {
-        this.rb = rb;
-        this.kolicina = kolicina;
-        this.knjiga = knjiga;
-        this.iznos = iznos;
-        this.racun = racun;
-        this.jedinicnaCena = jedinicnaCena;
+    	setRb(rb);
+    	setKolicina(kolicina);
+    	setKnjiga(knjiga);
+    	setIznos(iznos);
+    	setRacun(racun);
+    	setJedinicnaCena(jedinicnaCena);
+
     }
 
 
@@ -44,6 +38,8 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
     }
 
     public void setJedinicnaCena(double jedinicnaCena) {
+    	if(jedinicnaCena<=0)
+    		throw new IllegalArgumentException();
         this.jedinicnaCena = jedinicnaCena;
     }
 
@@ -54,16 +50,19 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
     }
 
     public void setRacun(Racun racun) {
+    	if(racun==null)
+    		throw new NullPointerException();
         this.racun = racun;
     }
 
-   
 
     public int getRb() {
         return rb;
     }
 
     public void setRb(int rb) {
+    	if(rb<=0)
+    		throw new IllegalArgumentException();
         this.rb = rb;
     }
 
@@ -72,6 +71,8 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
     }
 
     public void setKolicina(int kolicina) {
+    	if(kolicina<=0)
+    		throw new IllegalArgumentException();
         this.kolicina = kolicina;
     }
 
@@ -80,6 +81,8 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
     }
 
     public void setKnjiga(Knjiga knjiga) {
+    	if(knjiga==null)
+    		throw new NullPointerException();
         this.knjiga = knjiga;
     }
 
@@ -88,6 +91,8 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
     }
 
     public void setIznos(double iznos) {
+    	if(iznos<=0)
+    		throw new IllegalArgumentException();
         this.iznos = iznos;
     }
 
@@ -224,11 +229,6 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
         }
     }
 
-    
-    
-    
-    
-    
     
     
 }

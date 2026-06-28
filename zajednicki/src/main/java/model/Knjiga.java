@@ -2,6 +2,7 @@
 package model;
 
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,41 +22,25 @@ public class Knjiga implements OpstiDomenskiObjekat {
     public Knjiga() {
     }
 
-    /*
-    public Knjiga( String naslov, String zanr, int godinaIzdanja, double cena) {
-        
-        this.naslov = naslov;
-        this.zanr = zanr;
-        this.godinaIzdanja = godinaIzdanja;
-        this.cena = cena;
-    }*/
       
     public Knjiga(int idKnjiga, String naslov, String zanr, int godinaIzdanja, double cena, int kolicina,Magacin magacin) {
-        this.idKnjiga = idKnjiga;
-        this.naslov = naslov;
-        this.zanr = zanr;
-        this.godinaIzdanja = godinaIzdanja;
-        this.cena = cena;
-        this.kolicina = kolicina;
-        this.magacin = magacin;
+        setIdKnjiga(idKnjiga);
+        setNaslov(naslov);
+        setZanr(zanr);
+        setGodinaIzdanja(godinaIzdanja);
+        setCena(cena);
+        setKolicina(kolicina);
+        setMagacin(magacin);
     }
     
-    /*
-        public Knjiga(int idKnjiga, String naslov, String zanr, int godinaIzdanja, double cena) {
-        this.idKnjiga = idKnjiga;
-        this.naslov = naslov;
-        this.zanr = zanr;
-        this.godinaIzdanja = godinaIzdanja;
-        this.cena = cena;
-    }*/
 
     public Knjiga(String naslov, String zanr, int godinaIzdanja, double cena, int kolicina, Magacin magacin) {
-        this.naslov = naslov;
-        this.zanr = zanr;
-        this.godinaIzdanja = godinaIzdanja;
-        this.cena = cena;
-        this.kolicina = kolicina;
-        this.magacin = magacin;
+        setNaslov(naslov);
+        setZanr(zanr);
+        setGodinaIzdanja(godinaIzdanja);
+        setCena(cena);
+        setKolicina(kolicina);
+        setMagacin(magacin);
     }
 
 
@@ -64,6 +49,8 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
 
     public void setIdKnjiga(int idKnjiga) {
+    	if(idKnjiga<=0)
+    		throw new IllegalArgumentException();
         this.idKnjiga = idKnjiga;
     }
 
@@ -72,6 +59,12 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
 
     public void setNaslov(String naslov) {
+    	if(naslov==null)
+    		throw new NullPointerException();
+    	if(naslov.isBlank())
+    		throw new IllegalArgumentException();
+    	if(naslov.length()>50)
+    		throw new IllegalArgumentException();
         this.naslov = naslov;
     }
 
@@ -80,6 +73,12 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
 
     public void setZanr(String zanr) {
+    	if(zanr==null)
+    		throw new NullPointerException();
+    	if(zanr.isBlank())
+    		throw new IllegalArgumentException();
+    	if(zanr.length()>20)
+    		throw new IllegalArgumentException();
         this.zanr = zanr;
     }
 
@@ -88,6 +87,15 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
 
     public void setGodinaIzdanja(int godinaIzdanja) {
+    	if(godinaIzdanja<=0)
+    		throw new IllegalArgumentException();
+    	
+    	LocalDateTime dt = LocalDateTime.now();
+    	int godina = dt.getYear();
+    	
+    	if(godinaIzdanja>godina)
+    		throw new IllegalArgumentException();
+    	
         this.godinaIzdanja = godinaIzdanja;
     }
 
@@ -96,6 +104,10 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
 
     public void setCena(double cena) {
+    	
+    	if(cena<=0)
+    		throw new IllegalArgumentException();
+    	
         this.cena = cena;
     }
 
@@ -104,6 +116,8 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
 
     public void setKolicina(int kolicina) {
+    	if(kolicina<0)
+    		throw new IllegalArgumentException();
         this.kolicina = kolicina;
     }
 
@@ -112,11 +126,10 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
 
     public void setMagacin(Magacin magacin) {
+    	if(magacin==null)
+    		throw new NullPointerException();
         this.magacin = magacin;
     }
-    
-    
-    
     
 
     @Override
@@ -125,39 +138,25 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
+	public int hashCode() {
+		return Objects.hash(godinaIzdanja, naslov, zanr);
+	}
+
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Knjiga other = (Knjiga) obj;
-        if (this.idKnjiga != other.idKnjiga) {
-            return false;
-        }
-        if (this.godinaIzdanja != other.godinaIzdanja) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.cena) != Double.doubleToLongBits(other.cena)) {
-            return false;
-        }
-        if (!Objects.equals(this.naslov, other.naslov)) {
-            return false;
-        }
-        return Objects.equals(this.zanr, other.zanr);
-    }
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Knjiga other = (Knjiga) obj;
+		return godinaIzdanja == other.godinaIzdanja && Objects.equals(naslov, other.naslov)
+				&& Objects.equals(zanr, other.zanr);
+	}
 
-    @Override
+	@Override
     public String vratiNazivTabele() {
        return "knjiga";
     }
