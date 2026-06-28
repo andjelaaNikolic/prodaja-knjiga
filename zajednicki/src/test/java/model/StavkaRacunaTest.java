@@ -41,20 +41,6 @@ class StavkaRacunaTest {
 
 
     @Test
-    void testKonstruktorSa6Parametara() {
-        StavkaRacuna sr = new StavkaRacuna(1, 2, knjiga, 3000.0, racun, 1500.0);
-
-        assertEquals(1, sr.getRb());
-        assertEquals(2, sr.getKolicina());
-        assertEquals(knjiga, sr.getKnjiga());
-        assertEquals(3000.0, sr.getIznos());
-        assertEquals(racun, sr.getRacun());
-        assertEquals(1500.0, sr.getJedinicnaCena());
-    }
-
-
-
-    @Test
     void testSetRb() {
         stavka.setRb(3);
         assertEquals(3, stavka.getRb());

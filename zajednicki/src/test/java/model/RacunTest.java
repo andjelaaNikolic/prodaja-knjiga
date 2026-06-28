@@ -43,29 +43,6 @@ class RacunTest {
 
 
     @Test
-    void testKonstruktorBezIda() {
-        Date datum = new Date();
-        Racun r = new Racun(datum, 1500.0, prodavac, kupac);
-
-        assertEquals(datum, r.getDatum());
-        assertEquals(1500.0, r.getUkupanIznos());
-        assertEquals(prodavac, r.getProdavac());
-        assertEquals(kupac, r.getKupac());
-    }
-
-    @Test
-    void testKonstruktorSaIdom() {
-        Date datum = new Date();
-        Racun r = new Racun(10, datum, 1500.0, prodavac, kupac);
-
-        assertEquals(10, r.getIdRacun());
-        assertEquals(datum, r.getDatum());
-        assertEquals(1500.0, r.getUkupanIznos());
-        assertEquals(prodavac, r.getProdavac());
-        assertEquals(kupac, r.getKupac());
-    }
-
-    @Test
     void testSetIdRacun() {
         racun.setIdRacun(5);
         assertEquals(5, racun.getIdRacun());

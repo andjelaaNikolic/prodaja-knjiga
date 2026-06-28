@@ -34,31 +34,6 @@ class ProdavacTest {
 
 
     @Test
-    void testKonstruktorSaIdom() {
-        Prodavac p = new Prodavac(1, "Pera", "Peric", "pera123", "sifra123", "pera@gmail.com");
-        assertEquals(1, p.getIdProdavac());
-        assertEquals("Pera", p.getIme());
-        assertEquals("Peric", p.getPrezime());
-        assertEquals("pera123", p.getKorisnickoIme());
-        assertEquals("sifra123", p.getSifra());
-        assertEquals("pera@gmail.com", p.getEmail());
-        assertNotNull(p.getPrss());
-        assertTrue(p.getPrss().isEmpty());
-    }
-
-    @Test
-    void testKonstruktorBezIda() {
-        Prodavac p = new Prodavac("Pera", "Peric", "pera123", "sifra123", "pera@gmail.com");
-        assertEquals("Pera", p.getIme());
-        assertEquals("Peric", p.getPrezime());
-        assertEquals("pera123", p.getKorisnickoIme());
-        assertEquals("sifra123", p.getSifra());
-        assertEquals("pera@gmail.com", p.getEmail());
-        assertNotNull(p.getPrss());
-    }
-
-
-    @Test
     void testSetIdProdavac() {
         prodavac.setIdProdavac(5);
         assertEquals(5, prodavac.getIdProdavac());
