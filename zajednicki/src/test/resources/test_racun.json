@@ -1,0 +1,26 @@
+{
+  "idRacun": 1,
+  "datum": "29.06.2026.",
+  "ukupanIznos": 5000,
+  "ukupanIznosEUR": 42.55,
+  "prodavac": {
+    "ime": "Pera",
+    "prezime": "Peric",
+    "korisnickoIme": "pera123"
+  },
+  "kupac": {
+    "ime": "Marko",
+    "prezime": "Markovic",
+    "mesto": "Beograd"
+  },
+  "stavke": [
+    {
+      "rb": 1,
+      "naslovKnjige": "Na Drini cuprija",
+      "zanr": "Roman",
+      "kolicina": 2,
+      "jedinicnaCena": 2500,
+      "iznos": 5000
+    }
+  ]
+}
