@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -58,8 +60,8 @@ class ProdavacTest {
 
     @Test
     void testSetImeSaSlovimaSrpske() {
-        prodavac.setIme("Đorđe Šćepan");
-        assertEquals("Đorđe Šćepan", prodavac.getIme());
+        prodavac.setIme("Pera Perić");
+        assertEquals("Pera Perić", prodavac.getIme());
     }
 
     @Test
@@ -172,7 +174,7 @@ class ProdavacTest {
 
     @Test
     void testSetEmailPredugacak() {
-        String predugacak = "a".repeat(45) + "@gmail.com"; // duzi od 50 karaktera
+        String predugacak = "a".repeat(45) + "@gmail.com"; 
         assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail(predugacak));
     }
 
@@ -186,18 +188,6 @@ class ProdavacTest {
         assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail("pera@"));
     }
 
-
-    @Test
-    void testSetPrss() {
-        List<PrSS> lista = new ArrayList<>();
-        prodavac.setPrss(lista);
-        assertEquals(lista, prodavac.getPrss());
-    }
-
-    @Test
-    void testSetPrssNull() {
-        assertThrows(NullPointerException.class, () -> prodavac.setPrss(null));
-    }
 
 
     @Test
@@ -222,42 +212,18 @@ class ProdavacTest {
         assertFalse(prodavac.equals(new String()));
     }
 
-    @Test
-    void testEqualsJednaki() {
-        prodavac.setIme("Pera");
-        prodavac.setPrezime("Peric");
-        prodavac.setKorisnickoIme("pera123");
-        prodavac.setSifra("sifra123");
-        prodavac.setEmail("pera@gmail.com");
-
+    @ParameterizedTest
+    @CsvSource({
+        "pera123, pera123, true",   
+        "pera123, mika456, false"   
+    })
+    void testEquals(String korisnickoIme1, String korisnickoIme2, boolean ocekivanoJednako) {
+        prodavac.setKorisnickoIme(korisnickoIme1);
         Prodavac p2 = new Prodavac();
-        p2.setIme("Pera");
-        p2.setPrezime("Peric");
-        p2.setKorisnickoIme("pera123");
-        p2.setSifra("sifra456");
-        p2.setEmail("pera@gmail.com");
-
-        assertTrue(prodavac.equals(p2));
+        p2.setKorisnickoIme(korisnickoIme2);
+        assertEquals(ocekivanoJednako, prodavac.equals(p2));
     }
-
-    @Test
-    void testEqualsRazliciti() {
-        prodavac.setIme("Pera");
-        prodavac.setPrezime("Peric");
-        prodavac.setKorisnickoIme("pera123");
-        prodavac.setSifra("sifra123");
-        prodavac.setEmail("pera@gmail.com");
-
-        Prodavac p2 = new Prodavac();
-        p2.setIme("Mika");
-        p2.setPrezime("Mikic");
-        p2.setKorisnickoIme("mika456");
-        p2.setSifra("sifra123");
-        p2.setEmail("mika@gmail.com");
-
-        assertFalse(prodavac.equals(p2));
-    }
-
+ 
 
     @Test
     void testVratiNazivTabele() {

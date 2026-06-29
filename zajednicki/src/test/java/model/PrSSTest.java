@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -169,52 +171,132 @@ class PrSSTest {
         assertFalse(prss.equals(new String()));
     }
 
-    @Test
-    void testEqualsJednaki() {
+    @ParameterizedTest
+    @CsvSource({
+        "FON, Beograd, FON, Beograd, true",
+        "FON, Beograd, ETF, Beograd, false",
+        "FON, Beograd, FON, Novi Sad, false"
+    })
+    void testEqualsInstitucijaIGrad(String institucija1, String grad1,
+            String institucija2, String grad2, boolean ocekivanoJednako) {
         StrSprema ss = new StrSprema(1, "Visoka strucna sprema");
         Prodavac p = new Prodavac();
         p.setKorisnickoIme("pera123");
         Date datum = new Date();
-
+ 
         prss.setStrSprema(ss);
+        prss.setProdavac(p);
+        prss.setDatumSticanja(datum);
+        prss.setInstitucija(institucija1);
+        prss.setGrad(grad1);
+ 
+        PrSS ps2 = new PrSS();
+        ps2.setStrSprema(ss);
+        ps2.setProdavac(p);
+        ps2.setDatumSticanja(datum);
+        ps2.setInstitucija(institucija2);
+        ps2.setGrad(grad2);
+ 
+        assertEquals(ocekivanoJednako, prss.equals(ps2));
+    }
+ 
+    @Test
+    void testEqualsRazlicitaStrSprema() {
+        StrSprema ss1 = new StrSprema(1, "Visoka strucna sprema");
+        StrSprema ss2 = new StrSprema(2, "Osnovna strucna sprema");
+        Prodavac p = new Prodavac();
+        p.setKorisnickoIme("pera123");
+        Date datum = new Date();
+ 
+        prss.setStrSprema(ss1);
         prss.setProdavac(p);
         prss.setDatumSticanja(datum);
         prss.setInstitucija("FON");
         prss.setGrad("Beograd");
-
+ 
         PrSS ps2 = new PrSS();
-        ps2.setStrSprema(ss);
+        ps2.setStrSprema(ss2);
         ps2.setProdavac(p);
         ps2.setDatumSticanja(datum);
         ps2.setInstitucija("FON");
         ps2.setGrad("Beograd");
-
-        assertTrue(prss.equals(ps2));
+ 
+        assertFalse(prss.equals(ps2));
     }
-
+ 
     @Test
-    void testEqualsRazliciti() {
+    void testEqualsRazlicitProdavac() {
         StrSprema ss = new StrSprema(1, "Visoka strucna sprema");
-        Prodavac p = new Prodavac();
-        p.setKorisnickoIme("pera123");
+        Prodavac p1 = new Prodavac();
+        p1.setKorisnickoIme("pera123");
+        Prodavac p2 = new Prodavac();
+        p2.setKorisnickoIme("mika456");
         Date datum = new Date();
-
+ 
         prss.setStrSprema(ss);
-        prss.setProdavac(p);
+        prss.setProdavac(p1);
         prss.setDatumSticanja(datum);
         prss.setInstitucija("FON");
         prss.setGrad("Beograd");
-
+ 
+        PrSS ps2 = new PrSS();
+        ps2.setStrSprema(ss);
+        ps2.setProdavac(p2);
+        ps2.setDatumSticanja(datum);
+        ps2.setInstitucija("FON");
+        ps2.setGrad("Beograd");
+ 
+        assertFalse(prss.equals(ps2));
+    }
+ 
+    @Test
+    void testEqualsIstoKorisnickoImeProdavacaJednako() {
+        StrSprema ss = new StrSprema(1, "Visoka strucna sprema");
+        Prodavac p1 = new Prodavac();
+        p1.setKorisnickoIme("pera123");
+        Prodavac p2 = new Prodavac();
+        p2.setKorisnickoIme("pera123");
+        Date datum = new Date();
+ 
+        prss.setStrSprema(ss);
+        prss.setProdavac(p1);
+        prss.setDatumSticanja(datum);
+        prss.setInstitucija("FON");
+        prss.setGrad("Beograd");
+ 
+        PrSS ps2 = new PrSS();
+        ps2.setStrSprema(ss);
+        ps2.setProdavac(p2);
+        ps2.setDatumSticanja(datum);
+        ps2.setInstitucija("FON");
+        ps2.setGrad("Beograd");
+ 
+        assertTrue(prss.equals(ps2));
+    }
+ 
+    @Test
+    void testEqualsRazlicitDatumSticanja() {
+        StrSprema ss = new StrSprema(1, "Visoka strucna sprema");
+        Prodavac p = new Prodavac();
+        p.setKorisnickoIme("pera123");
+        Date datum1 = new Date();
+        Date datum2 = new Date(datum1.getTime() - 24L * 60 * 60 * 1000); 
+ 
+        prss.setStrSprema(ss);
+        prss.setProdavac(p);
+        prss.setDatumSticanja(datum1);
+        prss.setInstitucija("FON");
+        prss.setGrad("Beograd");
+ 
         PrSS ps2 = new PrSS();
         ps2.setStrSprema(ss);
         ps2.setProdavac(p);
-        ps2.setDatumSticanja(datum);
-        ps2.setInstitucija("ETF");
+        ps2.setDatumSticanja(datum2);
+        ps2.setInstitucija("FON");
         ps2.setGrad("Beograd");
-
+ 
         assertFalse(prss.equals(ps2));
     }
-
 
     @Test
     void testVratiNazivTabele() {
