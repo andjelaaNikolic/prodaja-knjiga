@@ -39,7 +39,7 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
 
     public void setJedinicnaCena(double jedinicnaCena) {
     	if(jedinicnaCena<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Jedinična cena mora biti veća od nule.");
         this.jedinicnaCena = jedinicnaCena;
     }
 
@@ -51,7 +51,7 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
 
     public void setRacun(Racun racun) {
     	if(racun==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Račun ne sme biti null.");
         this.racun = racun;
     }
 
@@ -62,7 +62,7 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
 
     public void setRb(int rb) {
     	if(rb<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Redni broj mora biti veći od nule.");
         this.rb = rb;
     }
 
@@ -72,7 +72,7 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
 
     public void setKolicina(int kolicina) {
     	if(kolicina<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Količina mora biti veća od nule.");
         this.kolicina = kolicina;
     }
 
@@ -82,7 +82,7 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
 
     public void setKnjiga(Knjiga knjiga) {
     	if(knjiga==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Knjiga ne sme biti null.");
         this.knjiga = knjiga;
     }
 
@@ -92,7 +92,7 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
 
     public void setIznos(double iznos) {
     	if(iznos<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Iznos mora biti veći od nule.");
         this.iznos = iznos;
     }
 
@@ -232,3 +232,4 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
     
     
 }
+

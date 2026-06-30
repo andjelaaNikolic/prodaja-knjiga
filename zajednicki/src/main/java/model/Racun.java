@@ -149,7 +149,7 @@ public class Racun implements OpstiDomenskiObjekat {
 
     public void setIdRacun(int idRacun) {
     	if(idRacun<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("ID računa mora biti veći od nule.");
         this.idRacun = idRacun;
     }
 
@@ -158,10 +158,10 @@ public class Racun implements OpstiDomenskiObjekat {
     }
 
     public void setDatum(Date datum) {
-        if (datum.after(new Date())) 
-            throw new IllegalArgumentException();
         if(datum==null)
-        	throw new NullPointerException();
+        	throw new NullPointerException("Datum ne sme biti null.");
+        if (datum.after(new Date())) 
+            throw new IllegalArgumentException("Datum ne sme biti u budućnosti.");
 
         this.datum = datum;
     }
@@ -172,7 +172,7 @@ public class Racun implements OpstiDomenskiObjekat {
 
     public void setUkupanIznos(double ukupanIznos) {
     	if(ukupanIznos<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Ukupan iznos mora biti veći od nule.");
         this.ukupanIznos = ukupanIznos;
     }
 
@@ -182,7 +182,7 @@ public class Racun implements OpstiDomenskiObjekat {
 
     public void setProdavac(Prodavac prodavac) {
     	if(prodavac==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Prodavac ne sme biti null.");
         this.prodavac = prodavac;
     }
 
@@ -192,7 +192,7 @@ public class Racun implements OpstiDomenskiObjekat {
 
     public void setKupac(Kupac kupac) {
     	if(kupac==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Kupac ne sme biti null.");
         this.kupac = kupac;
     }
 
@@ -207,3 +207,4 @@ public class Racun implements OpstiDomenskiObjekat {
    
     
 }
+

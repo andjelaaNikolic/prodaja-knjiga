@@ -43,14 +43,16 @@ class MestoTest {
 
 	@Test
 	void testSetIdMestoNula() {
-		assertThrows(java.lang.IllegalArgumentException.class, 
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class, 
 				() -> m.setIdMesto(0));
+		assertEquals("ID mesta mora biti veći od nule.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetIdMestoNegativno() {
-		assertThrows(java.lang.IllegalArgumentException.class, 
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class, 
 				() -> m.setIdMesto(-1));
+		assertEquals("ID mesta mora biti veći od nule.", ex.getMessage());
 	}
 	
 	@Test
@@ -61,25 +63,29 @@ class MestoTest {
 	
 	@Test
 	void testSetNazivMestaNull() {
-		assertThrows(java.lang.NullPointerException.class, 
+		Exception ex = assertThrows(java.lang.NullPointerException.class, 
 				() -> m.setNazivMesta(null));
+		assertEquals("Naziv mesta ne sme biti null.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetNazivMestaPredugacak() {
 		String predugacak = "A".repeat(55);
-		assertThrows(java.lang.IllegalArgumentException.class, 
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class, 
 				() -> m.setNazivMesta(predugacak));
+		assertEquals("Naziv mesta ne sme imati više od 50 karaktera.", ex.getMessage());
 	}
 	@Test
 	void testSetNazivMestaBlank() {
-		assertThrows(java.lang.IllegalArgumentException.class,()->m.setNazivMesta(" "));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->m.setNazivMesta(" "));
+		assertEquals("Naziv mesta ne sme biti prazan.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetNazivMestaBrojevi() {
 		String sadrziBrojeve = "Beograd1";
-		assertThrows(java.lang.IllegalArgumentException.class,()->m.setNazivMesta(sadrziBrojeve));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->m.setNazivMesta(sadrziBrojeve));
+		assertEquals("Naziv mesta sme sadržati samo slova.", ex.getMessage());
 	}
 	
 	
@@ -212,3 +218,4 @@ class MestoTest {
     }
 	
 }
+

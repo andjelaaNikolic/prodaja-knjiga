@@ -37,12 +37,14 @@ class KnjigaTest {
 
 	 @Test
 	    void testSetIdKnjigaNegativan() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setIdKnjiga(-1));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setIdKnjiga(-1));
+	        assertEquals("ID knjige mora biti veći od nule.", ex.getMessage());
 	    }
 	 
 	    @Test
 	    void testSetIdKnjigaNula() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setIdKnjiga(0));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setIdKnjiga(0));
+	        assertEquals("ID knjige mora biti veći od nule.", ex.getMessage());
 	    }
 	 
 	    @Test
@@ -54,18 +56,21 @@ class KnjigaTest {
 	 
 	    @Test
 	    void testSetNaslovNull() {
-	        assertThrows(NullPointerException.class, () -> k.setNaslov(null));
+	        Exception ex = assertThrows(NullPointerException.class, () -> k.setNaslov(null));
+	        assertEquals("Naslov ne sme biti null.", ex.getMessage());
 	    }
 	 
 	    @Test
 	    void testSetNaslovBlank() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setNaslov(" "));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setNaslov(" "));
+	        assertEquals("Naslov ne sme biti prazan.", ex.getMessage());
 	    }
 	 
 	    @Test
 	    void testSetNaslovPredugacak() {
 	        String predugacak = "A".repeat(51);
-	        assertThrows(IllegalArgumentException.class, () -> k.setNaslov(predugacak));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setNaslov(predugacak));
+	        assertEquals("Naslov ne sme imati više od 50 karaktera.", ex.getMessage());
 	    }
 	 
 	    @Test
@@ -83,18 +88,21 @@ class KnjigaTest {
 	 
 	    @Test
 	    void testSetZanrNull() {
-	        assertThrows(NullPointerException.class, () -> k.setZanr(null));
+	        Exception ex = assertThrows(NullPointerException.class, () -> k.setZanr(null));
+	        assertEquals("Žanr ne sme biti null.", ex.getMessage());
 	    }
 	 
 	    @Test
 	    void testSetZanrBlank() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setZanr(" "));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setZanr(" "));
+	        assertEquals("Žanr ne sme biti prazan.", ex.getMessage());
 	    }
 	 
 	    @Test
 	    void testSetZanrPredugacak() {
 	        String predugacak = "A".repeat(21);
-	        assertThrows(IllegalArgumentException.class, () -> k.setZanr(predugacak));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setZanr(predugacak));
+	        assertEquals("Žanr ne sme imati više od 20 karaktera.", ex.getMessage());
 	    }
 	 
 	    @Test
@@ -112,18 +120,21 @@ class KnjigaTest {
 	 
 	    @Test
 	    void testSetGodinaIzdanjaNegativan() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setGodinaIzdanja(-1));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setGodinaIzdanja(-1));
+	        assertEquals("Godina izdanja mora biti veća od nule.", ex.getMessage());
 	    }
 	 
 	    @Test
 	    void testSetGodinaIzdanjaNula() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setGodinaIzdanja(0));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setGodinaIzdanja(0));
+	        assertEquals("Godina izdanja mora biti veća od nule.", ex.getMessage());
 	    }
 	 
 	    @Test
 	    void testSetGodinaIzdanjaUBuducnosti() {
 	        int buducaGodina = LocalDateTime.now().getYear() + 1;
-	        assertThrows(IllegalArgumentException.class, () -> k.setGodinaIzdanja(buducaGodina));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setGodinaIzdanja(buducaGodina));
+	        assertEquals("Godina izdanja ne sme biti u budućnosti.", ex.getMessage());
 	    }
 	 
 	    @Test
@@ -141,12 +152,14 @@ class KnjigaTest {
 	 
 	    @Test
 	    void testSetCenaNegativna() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setCena(-1.0));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setCena(-1.0));
+	        assertEquals("Cena mora biti veća od nule.", ex.getMessage());
 	    }
 	 
 	    @Test
 	    void testSetCenaNula() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setCena(0));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setCena(0));
+	        assertEquals("Cena mora biti veća od nule.", ex.getMessage());
 	    }
 	 
 	    @Test
@@ -158,7 +171,8 @@ class KnjigaTest {
 	 
 	    @Test
 	    void testSetKolicinaNegativna() {
-	        assertThrows(IllegalArgumentException.class, () -> k.setKolicina(-1));
+	        Exception ex = assertThrows(IllegalArgumentException.class, () -> k.setKolicina(-1));
+	        assertEquals("Količina ne sme biti negativna.", ex.getMessage());
 	    }
 	 
 	    @Test
@@ -175,7 +189,8 @@ class KnjigaTest {
 	 
 	    @Test
 	    void testSetMagacinNull() {
-	        assertThrows(NullPointerException.class, () -> k.setMagacin(null));
+	        Exception ex = assertThrows(NullPointerException.class, () -> k.setMagacin(null));
+	        assertEquals("Magacin ne sme biti null.", ex.getMessage());
 	    }
 	 
 	    @Test
@@ -373,3 +388,4 @@ class KnjigaTest {
 	    }
 
 }
+

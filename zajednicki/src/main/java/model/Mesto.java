@@ -36,7 +36,7 @@ public class Mesto implements OpstiDomenskiObjekat{
     public void setIdMesto(int idMesto) {
  
     	if (idMesto <= 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("ID mesta mora biti veći od nule.");
         }
     	
         this.idMesto = idMesto;
@@ -49,16 +49,16 @@ public class Mesto implements OpstiDomenskiObjekat{
     public void setNazivMesta(String nazivMesta) {
     	
        	if (nazivMesta == null)
-    			throw new NullPointerException();
+    			throw new NullPointerException("Naziv mesta ne sme biti null.");
     		
        	if (nazivMesta.length() > 50)
-    			throw new IllegalArgumentException();
+    			throw new IllegalArgumentException("Naziv mesta ne sme imati više od 50 karaktera.");
        	
         if (!nazivMesta.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Naziv mesta sme sadržati samo slova.");
        	
        	if(nazivMesta.isBlank()) {
-       		throw new IllegalArgumentException();
+       		throw new IllegalArgumentException("Naziv mesta ne sme biti prazan.");
        	}
     		
         this.nazivMesta = nazivMesta;
@@ -148,3 +148,4 @@ public class Mesto implements OpstiDomenskiObjekat{
     
     
 }
+

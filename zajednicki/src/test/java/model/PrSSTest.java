@@ -44,7 +44,8 @@ class PrSSTest {
 
     @Test
     void testSetStrSpremaNull() {
-        assertThrows(NullPointerException.class, () -> prss.setStrSprema(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prss.setStrSprema(null));
+        assertEquals("Stručna sprema ne sme biti null.", ex.getMessage());
     }
 
 
@@ -62,7 +63,8 @@ class PrSSTest {
 
     @Test
     void testSetProdavacNull() {
-        assertThrows(NullPointerException.class, () -> prss.setProdavac(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prss.setProdavac(null));
+        assertEquals("Prodavac ne sme biti null.", ex.getMessage());
     }
 
 
@@ -75,7 +77,8 @@ class PrSSTest {
 
     @Test
     void testSetDatumSticanjaNull() {
-        assertThrows(NullPointerException.class, () -> prss.setDatumSticanja(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prss.setDatumSticanja(null));
+        assertEquals("Datum sticanja ne sme biti null.", ex.getMessage());
     }
 
     @Test
@@ -83,7 +86,8 @@ class PrSSTest {
         long jedanDan = 24 * 60 * 60 * 1000L;
         Date buducnost = new Date(System.currentTimeMillis() + jedanDan);
 
-        assertThrows(IllegalArgumentException.class, () -> prss.setDatumSticanja(buducnost));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prss.setDatumSticanja(buducnost));
+        assertEquals("Datum sticanja ne sme biti u budućnosti.", ex.getMessage());
     }
 
     @Test
@@ -101,17 +105,20 @@ class PrSSTest {
 
     @Test
     void testSetInstitucijaNull() {
-        assertThrows(NullPointerException.class, () -> prss.setInstitucija(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prss.setInstitucija(null));
+        assertEquals("Institucija ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetInstitucijaBlank() {
-        assertThrows(IllegalArgumentException.class, () -> prss.setInstitucija(" "));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prss.setInstitucija(" "));
+        assertEquals("Institucija ne sme biti prazna.", ex.getMessage());
     }
 
     @Test
     void testSetInstitucijaPredugacka() {
-        assertThrows(IllegalArgumentException.class, () -> prss.setInstitucija("A".repeat(51)));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prss.setInstitucija("A".repeat(51)));
+        assertEquals("Institucija ne sme imati više od 50 karaktera.", ex.getMessage());
     }
 
 
@@ -123,22 +130,26 @@ class PrSSTest {
 
     @Test
     void testSetGradNull() {
-        assertThrows(NullPointerException.class, () -> prss.setGrad(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prss.setGrad(null));
+        assertEquals("Grad ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetGradBlank() {
-        assertThrows(IllegalArgumentException.class, () -> prss.setGrad(" "));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prss.setGrad(" "));
+        assertEquals("Grad ne sme biti prazan.", ex.getMessage());
     }
 
     @Test
     void testSetGradPredugacak() {
-        assertThrows(IllegalArgumentException.class, () -> prss.setGrad("A".repeat(51)));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prss.setGrad("A".repeat(51)));
+        assertEquals("Grad ne sme imati više od 50 karaktera.", ex.getMessage());
     }
 
     @Test
     void testSetGradSaBrojevima() {
-        assertThrows(IllegalArgumentException.class, () -> prss.setGrad("Beograd1"));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prss.setGrad("Beograd1"));
+        assertEquals("Grad sme sadržati samo slova.", ex.getMessage());
     }
 
 
@@ -395,3 +406,4 @@ class PrSSTest {
         assertNull(rezultat);
     }
 }
+

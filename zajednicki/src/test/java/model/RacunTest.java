@@ -50,12 +50,14 @@ class RacunTest {
 
     @Test
     void testSetIdRacunNula() {
-        assertThrows(IllegalArgumentException.class, () -> racun.setIdRacun(0));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> racun.setIdRacun(0));
+        assertEquals("ID računa mora biti veći od nule.", ex.getMessage());
     }
 
     @Test
     void testSetIdRacunNegativan() {
-        assertThrows(IllegalArgumentException.class, () -> racun.setIdRacun(-1));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> racun.setIdRacun(-1));
+        assertEquals("ID računa mora biti veći od nule.", ex.getMessage());
     }
 
 
@@ -71,12 +73,14 @@ class RacunTest {
         long jedanDan = 24 * 60 * 60 * 1000L;
         Date buducnost = new Date(System.currentTimeMillis() + jedanDan);
 
-        assertThrows(IllegalArgumentException.class, () -> racun.setDatum(buducnost));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> racun.setDatum(buducnost));
+        assertEquals("Datum ne sme biti u budućnosti.", ex.getMessage());
     }
 
     @Test
     void testSetDatumNull() {
-        assertThrows(NullPointerException.class, () -> racun.setDatum(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> racun.setDatum(null));
+        assertEquals("Datum ne sme biti null.", ex.getMessage());
     }
 
 
@@ -89,12 +93,14 @@ class RacunTest {
 
     @Test
     void testSetUkupanIznosNula() {
-        assertThrows(IllegalArgumentException.class, () -> racun.setUkupanIznos(0));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> racun.setUkupanIznos(0));
+        assertEquals("Ukupan iznos mora biti veći od nule.", ex.getMessage());
     }
 
     @Test
     void testSetUkupanIznosNegativan() {
-        assertThrows(IllegalArgumentException.class, () -> racun.setUkupanIznos(-100));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> racun.setUkupanIznos(-100));
+        assertEquals("Ukupan iznos mora biti veći od nule.", ex.getMessage());
     }
 
 
@@ -107,7 +113,8 @@ class RacunTest {
 
     @Test
     void testSetProdavacNull() {
-        assertThrows(NullPointerException.class, () -> racun.setProdavac(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> racun.setProdavac(null));
+        assertEquals("Prodavac ne sme biti null.", ex.getMessage());
     }
 
 
@@ -119,7 +126,8 @@ class RacunTest {
 
     @Test
     void testSetKupacNull() {
-        assertThrows(NullPointerException.class, () -> racun.setKupac(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> racun.setKupac(null));
+        assertEquals("Kupac ne sme biti null.", ex.getMessage());
     }
 
 
@@ -274,3 +282,4 @@ class RacunTest {
         assertNull(rezultat);
     }
 }
+

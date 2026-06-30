@@ -40,7 +40,7 @@ public class Kupac implements OpstiDomenskiObjekat{
 
     public void setIdKupac(int idKupac) {
     	if(idKupac<=0) {
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("ID kupca mora biti veći od nule.");
     	}
         this.idKupac = idKupac;
     }
@@ -51,17 +51,17 @@ public class Kupac implements OpstiDomenskiObjekat{
 
     public void setIme(String ime) {
     	if(ime==null) {
-    		throw new NullPointerException();
+    		throw new NullPointerException("Ime ne sme biti null.");
     	}
     	
     	if(ime.length()>50) 
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Ime ne sme imati više od 50 karaktera.");
     	
     	if (ime.isBlank())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Ime ne sme biti prazno.");
     	
         if (!ime.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Ime sme sadržati samo slova.");
         this.ime = ime;
     }
 
@@ -71,16 +71,16 @@ public class Kupac implements OpstiDomenskiObjekat{
 
     public void setPrezime(String prezime) {
     	if(prezime==null) 
-    		throw new NullPointerException();
+    		throw new NullPointerException("Prezime ne sme biti null.");
     	
     	if(prezime.length()>50) 
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Prezime ne sme imati više od 50 karaktera.");
     	
     	if (prezime.isBlank())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Prezime ne sme biti prazno.");
     	
         if (!prezime.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Prezime sme sadržati samo slova.");
     	
         this.prezime = prezime;
     }
@@ -91,16 +91,16 @@ public class Kupac implements OpstiDomenskiObjekat{
 
     public void setBrojTelefona(String brojTelefona) {
     	if(brojTelefona==null) {
-    		throw new NullPointerException();
+    		throw new NullPointerException("Broj telefona ne sme biti null.");
     	}
     	if(brojTelefona.length()>10) {
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Broj telefona ne sme imati više od 10 cifara.");
     	}
     	if (!brojTelefona.matches("[0-9]+"))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Broj telefona sme sadržati samo cifre.");
     	
     	if (brojTelefona.isBlank())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Broj telefona ne sme biti prazan.");
     	
         this.brojTelefona = brojTelefona;
     }
@@ -111,7 +111,7 @@ public class Kupac implements OpstiDomenskiObjekat{
 
     public void setMesto(Mesto mesto) {
     	if(mesto==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Mesto ne sme biti null.");
         this.mesto = mesto;
     }
 
