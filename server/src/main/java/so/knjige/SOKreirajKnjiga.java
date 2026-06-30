@@ -31,11 +31,11 @@ public class SOKreirajKnjiga extends OpsteSistemskeOperacije {
         if(knjiga.getZanr()==null || knjiga.getZanr().isEmpty()){
             throw new Exception("Zanr je neispravan"); 
         }
-        if(knjiga.getGodinaIzdanja()<2017){
-            throw new Exception("Godina izdanja mora da bude 2017. ili veca");
+        if(knjiga.getGodinaIzdanja()<1900){
+            throw new Exception("Godina izdanja mora da bude 1900. ili veca");
         }
-        if(knjiga.getCena()<=200){
-            throw new Exception("Cena mora da bude veca od 200");
+        if(knjiga.getCena()<=0){
+            throw new Exception("Cena mora da bude veca od 0");
         }
         if(knjiga.getKolicina()<=0){
            throw new Exception("Dostupna kolicina mora da bude veca od 0");

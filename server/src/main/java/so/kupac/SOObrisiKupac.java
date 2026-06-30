@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 /**
  *
- * @author Ljilja
+ * @author Andjela
  */
 public class SOObrisiKupac extends OpsteSistemskeOperacije {
 

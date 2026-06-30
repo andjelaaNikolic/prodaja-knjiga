@@ -16,7 +16,7 @@ import model.StavkaRacuna;
 import java.sql.PreparedStatement;
 /**
  *
- * @author Ljilja
+ * @author Andjela
  */
 public class SOKreirajRacun extends OpsteSistemskeOperacije {
     
@@ -30,7 +30,6 @@ public class SOKreirajRacun extends OpsteSistemskeOperacije {
         }
         int brStavki = ((Racun) param).getStavke().size();
         int brIstih = 0;
-        //int kolicinaStancke
         
 
         try {

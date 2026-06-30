@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 /**
  *
- * @author Ljilja
+ * @author Andjela
  */
 public class SOUbaciMesto extends OpsteSistemskeOperacije {
 
@@ -36,7 +36,7 @@ public class SOUbaciMesto extends OpsteSistemskeOperacije {
             Statement st = DBKonekcija.getInstance().getConnection().createStatement();
             ResultSet rs = st.executeQuery(upit);
 
-            while (rs.next()) {
+            if (rs.next()) {
                 postoji = true;
             }
 

@@ -11,7 +11,7 @@ import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
  *
- * @author Ljilja
+ * @author Andjela
  */
 public class SOVratiListuSviRacun extends OpsteSistemskeOperacije {
 

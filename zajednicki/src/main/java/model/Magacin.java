@@ -17,14 +17,16 @@ public class Magacin implements OpstiDomenskiObjekat {
     }
 
     public Magacin(String naziv, String adresa) {
-        this.naziv = naziv;
-        this.adresa = adresa;
+    	setNaziv(naziv);
+    	setAdresa(adresa);
+
     }
 
     public Magacin(int idMagacin, String naziv, String adresa) {
-        this.idMagacin = idMagacin;
-        this.naziv = naziv;
-        this.adresa = adresa;
+        setIdMagacin(idMagacin);
+    	setNaziv(naziv);
+    	setAdresa(adresa);
+
     }
 
     public int getIdMagacin() {
