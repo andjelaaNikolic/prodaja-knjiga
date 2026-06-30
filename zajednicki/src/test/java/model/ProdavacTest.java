@@ -43,12 +43,14 @@ class ProdavacTest {
 
     @Test
     void testSetIdProdavacNula() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setIdProdavac(0));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setIdProdavac(0));
+        assertEquals("ID prodavca mora biti veći od nule.", ex.getMessage());
     }
 
     @Test
     void testSetIdProdavacNegativan() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setIdProdavac(-1));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setIdProdavac(-1));
+        assertEquals("ID prodavca mora biti veći od nule.", ex.getMessage());
     }
 
 
@@ -59,29 +61,33 @@ class ProdavacTest {
     }
 
     @Test
-    void testSetImeSaSlovimaSrpske() {
-        prodavac.setIme("Pera Perić");
-        assertEquals("Pera Perić", prodavac.getIme());
+    void testSetImeSaSrpskimSlovima() {
+        prodavac.setIme("Đorđe");
+        assertEquals("Đorđe", prodavac.getIme());
     }
 
     @Test
     void testSetImeNull() {
-        assertThrows(NullPointerException.class, () -> prodavac.setIme(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prodavac.setIme(null));
+        assertEquals("Ime ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetImeBlank() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setIme(" "));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setIme(" "));
+        assertEquals("Ime ne sme biti prazno.", ex.getMessage());
     }
 
     @Test
     void testSetImePredugacko() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setIme("A".repeat(51)));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setIme("A".repeat(51)));
+        assertEquals("Ime ne sme imati više od 50 karaktera.", ex.getMessage());
     }
 
     @Test
     void testSetImeSaBrojevima() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setIme("Pera1"));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setIme("Pera1"));
+        assertEquals("Ime sme sadržati samo slova.", ex.getMessage());
     }
 
 
@@ -93,22 +99,26 @@ class ProdavacTest {
 
     @Test
     void testSetPrezimeNull() {
-        assertThrows(NullPointerException.class, () -> prodavac.setPrezime(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prodavac.setPrezime(null));
+        assertEquals("Prezime ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetPrezimeBlank() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setPrezime(" "));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setPrezime(" "));
+        assertEquals("Prezime ne sme biti prazno.", ex.getMessage());
     }
 
     @Test
     void testSetPrezimePredugacko() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setPrezime("A".repeat(51)));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setPrezime("A".repeat(51)));
+        assertEquals("Prezime ne sme imati više od 50 karaktera.", ex.getMessage());
     }
 
     @Test
     void testSetPrezimeSaBrojevima() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setPrezime("Peric1"));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setPrezime("Peric1"));
+        assertEquals("Prezime sme sadržati samo slova.", ex.getMessage());
     }
 
 
@@ -120,17 +130,20 @@ class ProdavacTest {
 
     @Test
     void testSetKorisnickoImeNull() {
-        assertThrows(NullPointerException.class, () -> prodavac.setKorisnickoIme(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prodavac.setKorisnickoIme(null));
+        assertEquals("Korisničko ime ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetKorisnickoImeBlank() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setKorisnickoIme(" "));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setKorisnickoIme(" "));
+        assertEquals("Korisničko ime ne sme biti prazno.", ex.getMessage());
     }
 
     @Test
     void testSetKorisnickoImePredugacko() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setKorisnickoIme("a".repeat(51)));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setKorisnickoIme("a".repeat(51)));
+        assertEquals("Korisničko ime ne sme imati više od 50 karaktera.", ex.getMessage());
     }
 
 
@@ -142,17 +155,20 @@ class ProdavacTest {
 
     @Test
     void testSetSifraNull() {
-        assertThrows(NullPointerException.class, () -> prodavac.setSifra(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prodavac.setSifra(null));
+        assertEquals("Šifra ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetSifraBlank() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setSifra(" "));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setSifra(" "));
+        assertEquals("Šifra ne sme biti prazna.", ex.getMessage());
     }
 
     @Test
     void testSetSifraPredugacka() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setSifra("a".repeat(51)));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setSifra("a".repeat(51)));
+        assertEquals("Šifra ne sme imati više od 50 karaktera.", ex.getMessage());
     }
 
 
@@ -164,28 +180,33 @@ class ProdavacTest {
 
     @Test
     void testSetEmailNull() {
-        assertThrows(NullPointerException.class, () -> prodavac.setEmail(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> prodavac.setEmail(null));
+        assertEquals("Email ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetEmailBlank() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail(" "));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail(" "));
+        assertEquals("Email ne sme biti prazan.", ex.getMessage());
     }
 
     @Test
     void testSetEmailPredugacak() {
         String predugacak = "a".repeat(45) + "@gmail.com"; 
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail(predugacak));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail(predugacak));
+        assertEquals("Email ne sme imati više od 50 karaktera.", ex.getMessage());
     }
 
     @Test
     void testSetEmailNevalidanFormat() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail("peragmail.com"));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail("peragmail.com"));
+        assertEquals("Email nije u ispravnom formatu.", ex.getMessage());
     }
 
     @Test
     void testSetEmailBezDomena() {
-        assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail("pera@"));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> prodavac.setEmail("pera@"));
+        assertEquals("Email nije u ispravnom formatu.", ex.getMessage());
     }
 
 
@@ -341,3 +362,4 @@ class ProdavacTest {
         assertNull(rezultat);
     }
 }
+

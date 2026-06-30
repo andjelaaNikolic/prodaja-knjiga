@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author Ljilja
+ * @author Andjela
  */
 public class SOUbaciMagacin extends OpsteSistemskeOperacije {
 

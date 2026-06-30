@@ -45,7 +45,7 @@ public class Prodavac implements OpstiDomenskiObjekat{
 
     public void setPrss(List<PrSS> prss) {
     	if(prss==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Lista stručnih sprema ne sme biti null.");
         this.prss = prss;
     }
 
@@ -56,7 +56,7 @@ public class Prodavac implements OpstiDomenskiObjekat{
 
     public void setIdProdavac(int idProdavac) {
     	 if (idProdavac <= 0)
-             throw new IllegalArgumentException();
+             throw new IllegalArgumentException("ID prodavca mora biti veći od nule.");
         this.idProdavac = idProdavac;
     }
 
@@ -66,16 +66,16 @@ public class Prodavac implements OpstiDomenskiObjekat{
 
     public void setIme(String ime) {
     	if(ime==null) 
-    		throw new NullPointerException();
+    		throw new NullPointerException("Ime ne sme biti null.");
     	
     	if(ime.length()>50) 
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Ime ne sme imati više od 50 karaktera.");
     	
     	if (ime.isBlank())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Ime ne sme biti prazno.");
     	
         if (!ime.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Ime sme sadržati samo slova.");
         this.ime = ime;
     }
 
@@ -85,16 +85,16 @@ public class Prodavac implements OpstiDomenskiObjekat{
 
     public void setPrezime(String prezime) {
     	if(prezime==null) 
-    		throw new NullPointerException();
+    		throw new NullPointerException("Prezime ne sme biti null.");
     	
     	if(prezime.length()>50) 
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Prezime ne sme imati više od 50 karaktera.");
     	
     	if (prezime.isBlank())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Prezime ne sme biti prazno.");
     	
         if (!prezime.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Prezime sme sadržati samo slova.");
         this.prezime = prezime;
     }
 
@@ -104,13 +104,13 @@ public class Prodavac implements OpstiDomenskiObjekat{
 
     public void setKorisnickoIme(String korisnickoIme) {
     	if(korisnickoIme==null) 
-    		throw new NullPointerException();
+    		throw new NullPointerException("Korisničko ime ne sme biti null.");
     	
     	if(korisnickoIme.length()>50) 
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Korisničko ime ne sme imati više od 50 karaktera.");
     	
     	if (korisnickoIme.isBlank())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Korisničko ime ne sme biti prazno.");
     	
         this.korisnickoIme = korisnickoIme;
     }
@@ -122,11 +122,11 @@ public class Prodavac implements OpstiDomenskiObjekat{
 	public void setSifra(String sifra) {
 
 		if (sifra == null)
-			throw new NullPointerException();
+			throw new NullPointerException("Šifra ne sme biti null.");
 		if (sifra.isBlank())
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Šifra ne sme biti prazna.");
 		if (sifra.length() > 50)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Šifra ne sme imati više od 50 karaktera.");
 		this.sifra = sifra;
 	}
 
@@ -136,13 +136,13 @@ public class Prodavac implements OpstiDomenskiObjekat{
 
 	public void setEmail(String email) {
 		if (email == null)
-			throw new NullPointerException();
+			throw new NullPointerException("Email ne sme biti null.");
 		if (email.isBlank())
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Email ne sme biti prazan.");
 		if (email.length() > 50)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Email ne sme imati više od 50 karaktera.");
 		if (!email.matches("^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"))
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Email nije u ispravnom formatu.");
 		this.email = email;
 	}
 
@@ -246,3 +246,4 @@ public class Prodavac implements OpstiDomenskiObjekat{
     
     
 }
+

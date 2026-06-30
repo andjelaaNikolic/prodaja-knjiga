@@ -1,4 +1,5 @@
 
+
 package model;
 
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class StrSprema implements OpstiDomenskiObjekat{
     public void setIdStrucnaSprema(int idStrucnaSprema) {
     	
     	if(idStrucnaSprema<=0) {
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("ID stručne spreme mora biti veći od nule.");
     	}
         this.idStrucnaSprema = idStrucnaSprema;
     }
@@ -44,15 +45,15 @@ public class StrSprema implements OpstiDomenskiObjekat{
     public void setStepen(String stepen) {
     	
     	if(stepen==null) {
-    		throw new NullPointerException();
+    		throw new NullPointerException("Stepen ne sme biti null.");
     	}
     	
     	if(stepen.length()>50) {
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Stepen ne sme imati više od 50 karaktera.");
     	}
     	
     	if (stepen.isBlank())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Stepen ne sme biti prazan.");
     	
         this.stepen = stepen;
     }

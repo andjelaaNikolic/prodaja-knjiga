@@ -43,14 +43,16 @@ class MagacinTest {
 
     @Test
     void testSetIdMagacinNula() {
-        assertThrows(java.lang.IllegalArgumentException.class,
+        Exception ex = assertThrows(java.lang.IllegalArgumentException.class,
                 () -> m.setIdMagacin(0));
+        assertEquals("ID magacina mora biti veći od nule.", ex.getMessage());
     }
 
     @Test
     void testSetIdMagacinNegativno() {
-        assertThrows(java.lang.IllegalArgumentException.class,
+        Exception ex = assertThrows(java.lang.IllegalArgumentException.class,
                 () -> m.setIdMagacin(-1));
+        assertEquals("ID magacina mora biti veći od nule.", ex.getMessage());
     }
 
 
@@ -62,20 +64,23 @@ class MagacinTest {
 
     @Test
     void testSetNazivNull() {
-        assertThrows(java.lang.NullPointerException.class,
+        Exception ex = assertThrows(java.lang.NullPointerException.class,
                 () -> m.setNaziv(null));
+        assertEquals("Naziv ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetNazivPredugacak() {
         String predugacak = "A".repeat(101);
-        assertThrows(java.lang.IllegalArgumentException.class,
+        Exception ex = assertThrows(java.lang.IllegalArgumentException.class,
                 () -> m.setNaziv(predugacak));
+        assertEquals("Naziv ne sme imati više od 20 karaktera.", ex.getMessage());
     }
     
     @Test
 	void testSetNazivBlank() {
-		assertThrows(java.lang.IllegalArgumentException.class,()->m.setNaziv(" "));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->m.setNaziv(" "));
+		assertEquals("Naziv ne sme biti prazan.", ex.getMessage());
 	}
 
 
@@ -87,15 +92,17 @@ class MagacinTest {
 
     @Test
     void testSetAdresaNull() {
-        assertThrows(java.lang.NullPointerException.class,
+        Exception ex = assertThrows(java.lang.NullPointerException.class,
                 () -> m.setAdresa(null));
+        assertEquals("Adresa ne sme biti null.", ex.getMessage());
     }
 
     @Test
     void testSetAdresaPredugacka() {
         String predugacka = "A".repeat(70);
-        assertThrows(java.lang.IllegalArgumentException.class,
+        Exception ex = assertThrows(java.lang.IllegalArgumentException.class,
                 () -> m.setAdresa(predugacka));
+        assertEquals("Adresa ne sme imati više od 50 karaktera.", ex.getMessage());
     }
 
 
@@ -238,3 +245,4 @@ class MagacinTest {
     
     
     
+

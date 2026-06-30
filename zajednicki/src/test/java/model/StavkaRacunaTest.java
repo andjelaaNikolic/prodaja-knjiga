@@ -48,12 +48,14 @@ class StavkaRacunaTest {
 
     @Test
     void testSetRbNula() {
-        assertThrows(IllegalArgumentException.class, () -> stavka.setRb(0));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> stavka.setRb(0));
+        assertEquals("Redni broj mora biti veći od nule.", ex.getMessage());
     }
 
     @Test
     void testSetRbNegativan() {
-        assertThrows(IllegalArgumentException.class, () -> stavka.setRb(-1));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> stavka.setRb(-1));
+        assertEquals("Redni broj mora biti veći od nule.", ex.getMessage());
     }
 
 
@@ -65,12 +67,14 @@ class StavkaRacunaTest {
 
     @Test
     void testSetKolicinaNula() {
-        assertThrows(IllegalArgumentException.class, () -> stavka.setKolicina(0));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> stavka.setKolicina(0));
+        assertEquals("Količina mora biti veća od nule.", ex.getMessage());
     }
 
     @Test
     void testSetKolicinaNegativna() {
-        assertThrows(IllegalArgumentException.class, () -> stavka.setKolicina(-1));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> stavka.setKolicina(-1));
+        assertEquals("Količina mora biti veća od nule.", ex.getMessage());
     }
 
 
@@ -82,7 +86,8 @@ class StavkaRacunaTest {
 
     @Test
     void testSetKnjigaNull() {
-        assertThrows(NullPointerException.class, () -> stavka.setKnjiga(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> stavka.setKnjiga(null));
+        assertEquals("Knjiga ne sme biti null.", ex.getMessage());
     }
 
 
@@ -94,12 +99,14 @@ class StavkaRacunaTest {
 
     @Test
     void testSetIznosNula() {
-        assertThrows(IllegalArgumentException.class, () -> stavka.setIznos(0));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> stavka.setIznos(0));
+        assertEquals("Iznos mora biti veći od nule.", ex.getMessage());
     }
 
     @Test
     void testSetIznosNegativan() {
-        assertThrows(IllegalArgumentException.class, () -> stavka.setIznos(-100));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> stavka.setIznos(-100));
+        assertEquals("Iznos mora biti veći od nule.", ex.getMessage());
     }
 
 
@@ -111,7 +118,8 @@ class StavkaRacunaTest {
 
     @Test
     void testSetRacunNull() {
-        assertThrows(NullPointerException.class, () -> stavka.setRacun(null));
+        Exception ex = assertThrows(NullPointerException.class, () -> stavka.setRacun(null));
+        assertEquals("Račun ne sme biti null.", ex.getMessage());
     }
 
 
@@ -123,12 +131,14 @@ class StavkaRacunaTest {
 
     @Test
     void testSetJedinicnaCenaNula() {
-        assertThrows(IllegalArgumentException.class, () -> stavka.setJedinicnaCena(0));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> stavka.setJedinicnaCena(0));
+        assertEquals("Jedinična cena mora biti veća od nule.", ex.getMessage());
     }
 
     @Test
     void testSetJedinicnaCenaNegativna() {
-        assertThrows(IllegalArgumentException.class, () -> stavka.setJedinicnaCena(-50));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> stavka.setJedinicnaCena(-50));
+        assertEquals("Jedinična cena mora biti veća od nule.", ex.getMessage());
     }
 
 

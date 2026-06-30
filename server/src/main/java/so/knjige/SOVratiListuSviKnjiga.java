@@ -6,6 +6,7 @@ package so.knjige;
 
 import java.util.List;
 import model.Knjiga;
+import model.Racun;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
@@ -19,6 +20,9 @@ public class SOVratiListuSviKnjiga extends OpsteSistemskeOperacije{
 
     @Override
     protected void preduslovi(Object param) throws Exception {
+        if (param == null || !(param instanceof Knjiga)) {
+            throw new Exception("Nije prosledjen parametar odgovarajuceg tipa.");
+        }
        
     }
 

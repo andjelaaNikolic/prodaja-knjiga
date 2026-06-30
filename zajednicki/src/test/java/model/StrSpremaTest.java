@@ -38,13 +38,15 @@ class StrSpremaTest {
 	@Test
 	void testSetIdStrucnaSpremaNegativan() {
 		
-		assertThrows(java.lang.IllegalArgumentException.class,()->ss.setIdStrucnaSprema(-1));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->ss.setIdStrucnaSprema(-1));
+		assertEquals("ID stručne spreme mora biti veći od nule.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetIdStrucnaSpremaNula() {
 		
-		assertThrows(java.lang.IllegalArgumentException.class,()->ss.setIdStrucnaSprema(0));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->ss.setIdStrucnaSprema(0));
+		assertEquals("ID stručne spreme mora biti veći od nule.", ex.getMessage());
 	}
 	
 	@Test
@@ -56,18 +58,21 @@ class StrSpremaTest {
 	
 	@Test
 	void testSetStepenNull() {
-		assertThrows(java.lang.NullPointerException.class,()->ss.setStepen(null));
+		Exception ex = assertThrows(java.lang.NullPointerException.class,()->ss.setStepen(null));
+		assertEquals("Stepen ne sme biti null.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetStrucnaSpremaPredugacak() {
 		String predugacak = "A".repeat(60);
-		assertThrows(java.lang.IllegalArgumentException.class,()->ss.setStepen(predugacak));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->ss.setStepen(predugacak));
+		assertEquals("Stepen ne sme imati više od 50 karaktera.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetStepenBlank() {
-		assertThrows(java.lang.IllegalArgumentException.class,()->ss.setStepen(" "));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->ss.setStepen(" "));
+		assertEquals("Stepen ne sme biti prazan.", ex.getMessage());
 	}
 
 	@Test
@@ -200,3 +205,4 @@ class StrSpremaTest {
 	    }
 
 }
+

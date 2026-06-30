@@ -11,10 +11,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-/**
- *
- * @author Ljilja
- */
+
 public class SOObrisiKnjiga extends OpsteSistemskeOperacije {
     
     private boolean koristiSe=false;

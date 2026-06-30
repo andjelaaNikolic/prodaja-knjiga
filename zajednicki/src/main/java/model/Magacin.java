@@ -17,14 +17,16 @@ public class Magacin implements OpstiDomenskiObjekat {
     }
 
     public Magacin(String naziv, String adresa) {
-        this.naziv = naziv;
-        this.adresa = adresa;
+    	setNaziv(naziv);
+    	setAdresa(adresa);
+
     }
 
     public Magacin(int idMagacin, String naziv, String adresa) {
-        this.idMagacin = idMagacin;
-        this.naziv = naziv;
-        this.adresa = adresa;
+        setIdMagacin(idMagacin);
+    	setNaziv(naziv);
+    	setAdresa(adresa);
+
     }
 
     public int getIdMagacin() {
@@ -33,7 +35,7 @@ public class Magacin implements OpstiDomenskiObjekat {
 
     public void setIdMagacin(int idMagacin) {
         if (idMagacin <= 0)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("ID magacina mora biti veći od nule.");
         this.idMagacin = idMagacin;
     }
 
@@ -43,11 +45,11 @@ public class Magacin implements OpstiDomenskiObjekat {
 
     public void setNaziv(String naziv) {
         if (naziv == null)
-            throw new NullPointerException();
+            throw new NullPointerException("Naziv ne sme biti null.");
         if (naziv.length() > 20)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Naziv ne sme imati više od 20 karaktera.");
         if(naziv.isBlank()) {
-        	throw new IllegalArgumentException();
+        	throw new IllegalArgumentException("Naziv ne sme biti prazan.");
         }
         this.naziv = naziv;
     }
@@ -58,9 +60,9 @@ public class Magacin implements OpstiDomenskiObjekat {
 
     public void setAdresa(String adresa) {
         if (adresa == null)
-            throw new NullPointerException();
+            throw new NullPointerException("Adresa ne sme biti null.");
         if (adresa.length() > 50)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Adresa ne sme imati više od 50 karaktera.");
         this.adresa = adresa;
     }
 
@@ -149,3 +151,4 @@ public class Magacin implements OpstiDomenskiObjekat {
         return "naziv='" + naziv + "', adresa='" + adresa + "'";
     }
 }
+

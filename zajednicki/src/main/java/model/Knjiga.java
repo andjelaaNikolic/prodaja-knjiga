@@ -50,7 +50,7 @@ public class Knjiga implements OpstiDomenskiObjekat {
 
     public void setIdKnjiga(int idKnjiga) {
     	if(idKnjiga<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("ID knjige mora biti veći od nule.");
         this.idKnjiga = idKnjiga;
     }
 
@@ -60,11 +60,11 @@ public class Knjiga implements OpstiDomenskiObjekat {
 
     public void setNaslov(String naslov) {
     	if(naslov==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Naslov ne sme biti null.");
     	if(naslov.isBlank())
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Naslov ne sme biti prazan.");
     	if(naslov.length()>50)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Naslov ne sme imati više od 50 karaktera.");
         this.naslov = naslov;
     }
 
@@ -74,11 +74,11 @@ public class Knjiga implements OpstiDomenskiObjekat {
 
     public void setZanr(String zanr) {
     	if(zanr==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Žanr ne sme biti null.");
     	if(zanr.isBlank())
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Žanr ne sme biti prazan.");
     	if(zanr.length()>20)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Žanr ne sme imati više od 20 karaktera.");
         this.zanr = zanr;
     }
 
@@ -88,13 +88,13 @@ public class Knjiga implements OpstiDomenskiObjekat {
 
     public void setGodinaIzdanja(int godinaIzdanja) {
     	if(godinaIzdanja<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Godina izdanja mora biti veća od nule.");
     	
     	LocalDateTime dt = LocalDateTime.now();
     	int godina = dt.getYear();
     	
     	if(godinaIzdanja>godina)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Godina izdanja ne sme biti u budućnosti.");
     	
         this.godinaIzdanja = godinaIzdanja;
     }
@@ -106,7 +106,7 @@ public class Knjiga implements OpstiDomenskiObjekat {
     public void setCena(double cena) {
     	
     	if(cena<=0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Cena mora biti veća od nule.");
     	
         this.cena = cena;
     }
@@ -117,7 +117,7 @@ public class Knjiga implements OpstiDomenskiObjekat {
 
     public void setKolicina(int kolicina) {
     	if(kolicina<0)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Količina ne sme biti negativna.");
         this.kolicina = kolicina;
     }
 
@@ -127,7 +127,7 @@ public class Knjiga implements OpstiDomenskiObjekat {
 
     public void setMagacin(Magacin magacin) {
     	if(magacin==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Magacin ne sme biti null.");
         this.magacin = magacin;
     }
     
@@ -238,3 +238,4 @@ public class Knjiga implements OpstiDomenskiObjekat {
     
     
 }
+

@@ -1,4 +1,5 @@
 
+
 package model;
 
 import java.sql.ResultSet;
@@ -36,7 +37,7 @@ public class PrSS implements OpstiDomenskiObjekat{
 
     public void setStrSprema(StrSprema strSprema) {
     	if(strSprema==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Stručna sprema ne sme biti null.");
         this.strSprema = strSprema;
     }
 
@@ -46,7 +47,7 @@ public class PrSS implements OpstiDomenskiObjekat{
 
     public void setProdavac(Prodavac prodavac) {
     	if(prodavac==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Prodavac ne sme biti null.");
         this.prodavac = prodavac;
     }
 
@@ -56,9 +57,9 @@ public class PrSS implements OpstiDomenskiObjekat{
 
     public void setDatumSticanja(Date datumSticanja) {
     	if (datumSticanja == null)
-            throw new NullPointerException();
+            throw new NullPointerException("Datum sticanja ne sme biti null.");
         if (datumSticanja.after(new Date()))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Datum sticanja ne sme biti u budućnosti.");
         this.datumSticanja = datumSticanja;
     }
 
@@ -68,13 +69,13 @@ public class PrSS implements OpstiDomenskiObjekat{
 
     public void setInstitucija(String institucija) {
     	if(institucija==null) 
-    		throw new NullPointerException();
+    		throw new NullPointerException("Institucija ne sme biti null.");
     	
     	if(institucija.length()>50) 
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Institucija ne sme imati više od 50 karaktera.");
     	
     	if (institucija.isBlank())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Institucija ne sme biti prazna.");
         this.institucija = institucija;
     }
 
@@ -84,13 +85,13 @@ public class PrSS implements OpstiDomenskiObjekat{
 
     public void setGrad(String grad) {
     	if(grad==null)
-    		throw new NullPointerException();
+    		throw new NullPointerException("Grad ne sme biti null.");
     	if(grad.isBlank())
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Grad ne sme biti prazan.");
     	if(grad.length()>50)
-    		throw new IllegalArgumentException();
+    		throw new IllegalArgumentException("Grad ne sme imati više od 50 karaktera.");
         if (!grad.matches("[a-zA-ZčćšđžČĆŠĐŽ ]+"))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Grad sme sadržati samo slova.");
         this.grad = grad;
     }
 

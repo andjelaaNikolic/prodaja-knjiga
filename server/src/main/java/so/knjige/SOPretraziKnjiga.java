@@ -7,10 +7,7 @@ package so.knjige;
 import model.Knjiga;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
-/**
- *
- * @author Ljilja
- */
+
 public class SOPretraziKnjiga extends OpsteSistemskeOperacije {
 
     private Knjiga k;

@@ -36,12 +36,14 @@ class KupacTest {
 
 	@Test
 	void testSetIdKupacNegativan() {
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setIdKupac(-1));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setIdKupac(-1));
+		assertEquals("ID kupca mora biti veći od nule.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetIdKupacNula() {
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setIdKupac(0));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setIdKupac(0));
+		assertEquals("ID kupca mora biti veći od nule.", ex.getMessage());
 	}
 	
 	@Test
@@ -52,24 +54,28 @@ class KupacTest {
 	
 	@Test
 	void testSetImeNull() {
-		assertThrows(java.lang.NullPointerException.class,()->k.setIme(null));
+		Exception ex = assertThrows(java.lang.NullPointerException.class,()->k.setIme(null));
+		assertEquals("Ime ne sme biti null.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetImeBlank() {
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setIme(" "));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setIme(" "));
+		assertEquals("Ime ne sme biti prazno.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetImePredugacko() {
 		String predugacak = "A".repeat(51);
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setIme(predugacak));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setIme(predugacak));
+		assertEquals("Ime ne sme imati više od 50 karaktera.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetImeSadrziBrojeve() {
 		String sadrziBrojeve = "Pera3";
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setIme(sadrziBrojeve));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setIme(sadrziBrojeve));
+		assertEquals("Ime sme sadržati samo slova.", ex.getMessage());
 	}
 
 	
@@ -81,24 +87,28 @@ class KupacTest {
 	
 	@Test
 	void testSetPrezimeNull() {
-		assertThrows(java.lang.NullPointerException.class,()->k.setPrezime(null));
+		Exception ex = assertThrows(java.lang.NullPointerException.class,()->k.setPrezime(null));
+		assertEquals("Prezime ne sme biti null.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetPrezimeBlank() {
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setPrezime(" "));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setPrezime(" "));
+		assertEquals("Prezime ne sme biti prazno.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetPrezimePredugacko() {
 		String predugacak = "A".repeat(51);
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setPrezime(predugacak));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setPrezime(predugacak));
+		assertEquals("Prezime ne sme imati više od 50 karaktera.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetPrezimeSadrziBrojeve() {
 		String sadrziBrojeve = "Peric3";
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setPrezime(sadrziBrojeve));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setPrezime(sadrziBrojeve));
+		assertEquals("Prezime sme sadržati samo slova.", ex.getMessage());
 	}
 
 	
@@ -110,24 +120,28 @@ class KupacTest {
 	
 	@Test
 	void testSetBrojTelefonaNull() {
-		assertThrows(java.lang.NullPointerException.class,()->k.setBrojTelefona(null));
+		Exception ex = assertThrows(java.lang.NullPointerException.class,()->k.setBrojTelefona(null));
+		assertEquals("Broj telefona ne sme biti null.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetBrojTelefonaBlank() {
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setBrojTelefona(" "));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setBrojTelefona(" "));
+		assertEquals("Broj telefona sme sadržati samo cifre.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetBrojTelefonaPredugacak() {
 		String predugacak = "5".repeat(11);
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setBrojTelefona(predugacak));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setBrojTelefona(predugacak));
+		assertEquals("Broj telefona ne sme imati više od 10 cifara.", ex.getMessage());
 	}
 	
 	@Test
 	void testSetBrojTelefonaSadrziSlova() {
 		String sadrziSlova = "065A555555";
-		assertThrows(java.lang.IllegalArgumentException.class,()->k.setBrojTelefona(sadrziSlova));
+		Exception ex = assertThrows(java.lang.IllegalArgumentException.class,()->k.setBrojTelefona(sadrziSlova));
+		assertEquals("Broj telefona sme sadržati samo cifre.", ex.getMessage());
 	}
 
 	
@@ -139,7 +153,8 @@ class KupacTest {
 	
 	@Test
 	void testMestoNull() {
-		assertThrows(java.lang.NullPointerException.class,()->k.setMesto(null));
+		Exception ex = assertThrows(java.lang.NullPointerException.class,()->k.setMesto(null));
+		assertEquals("Mesto ne sme biti null.", ex.getMessage());
 	}
 	
 	@Test
