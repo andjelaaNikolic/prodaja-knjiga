@@ -22,13 +22,31 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-
+/**
+ * Klasa za serijalizaciju i deserijalizaciju JSON fajlova.
+ * Koristi Gson biblioteku za konverziju Java objekata u JSON format i obrnuto.
+ * 
+ * @author Andjela
+ */
 public class JsonUtil {
 
- 
+    /**
+     * Format koji se koristi za prikaz datuma u racunu: "dd.MM.yyyy.".
+     */
     private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd.MM.yyyy.");
 
- 
+    /**
+     * Serijalizuje dati racun u JSON fajl na zadatoj putanji.
+     * Racun sadrzi osnovne podatke o racunu, podatke o prodavcu i kupcu,
+     * sve stavke racuna, i ukupan iznos u RSD. Ukoliko je dostupna internet
+     * konekcija, dodaje se i ukupan iznos preracunat u EUR na osnovu trenutnog
+     * kursa; u suprotnom se za iznos u EUR upisuje vrednost "N/A".
+     * Ako folder na zadatoj putanji ne postoji, kreira se automatski.
+     *
+     * @param racun racun koji se serijalizuje
+     * @param putanja putanja fajla u koji se racun upisuje
+     * @throws IOException ako dodje do greske prilikom pisanja u fajl
+     */
     public static void serijalizujRacun(Racun racun, String putanja) throws IOException {
         JsonObject json = racunUJson(racun);
 
@@ -42,7 +60,16 @@ public class JsonUtil {
         }
     }
 
-
+    /**
+     * Kreira JSON reprezentaciju datog racuna.
+     * Ukljucuje osnovne podatke o racunu, podatke o prodavcu i kupcu, sve
+     * stavke racuna i ukupan iznos u RSD. Ukoliko je dostupna internet
+     * konekcija, dodaje se i ukupan iznos preracunat u EUR na osnovu
+     * trenutnog kursa; u suprotnom se za iznos u EUR upisuje vrednost "N/A".
+     *
+     * @param racun racun koji se pretvara u JSON
+     * @return JSON objekat koji predstavlja dati racun
+     */
     private static JsonObject racunUJson(Racun racun) {
         JsonObject json = new JsonObject();
         json.addProperty("idRacun", racun.getIdRacun());
@@ -89,7 +116,15 @@ public class JsonUtil {
         return json;
     }
 
-
+    /**
+     * Deserijalizuje racun iz JSON fajla na zadatoj putanji i formatira ga
+     * kao tekstualni prikaz pogodan za ispis korisniku.
+     *
+     * @param putanja putanja JSON fajla koji sadrzi racun
+     * @return tekstualni prikaz racuna sa podacima o racunu, prodavcu,
+     *         kupcu, svim stavkama i ukupnim iznosom (u RSD, i u EUR ako je dostupan)
+     * @throws IOException ako dodje do greske prilikom citanja fajla
+     */
     public static String deserijalizujRacun(String putanja) throws IOException {
         try (FileReader reader = new FileReader(putanja)) {
             JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
@@ -127,7 +162,16 @@ public class JsonUtil {
         }
     }
 
-
+    /**
+     * Izvozi listu racuna u JSON fajl na zadatoj putanji, u vidu skracenih
+     * sazetaka (ID racuna, datum, ukupan iznos, korisnicko ime prodavca i
+     * ime i prezime kupca), bez pojedinacnih stavki.
+     * Ako folder na zadatoj putanji ne postoji, kreira se automatski.
+     *
+     * @param racuni lista racuna koja se izvozi
+     * @param putanja putanja fajla u koji se lista upisuje
+     * @throws IOException ako dodje do greske prilikom pisanja u fajl
+     */
     public static void izvezListuRacuna(List<Racun> racuni, String putanja) throws IOException {
         JsonArray niz = new JsonArray();
 
@@ -151,6 +195,15 @@ public class JsonUtil {
         }
     }
 
+    /**
+     * Racuna ukupan prihod na osnovu liste racuna izvezene u JSON fajl na
+     * zadatoj putanji (metodom {@link #izvezListuRacuna(List, String)}),
+     * sabiranjem ukupnog iznosa svih racuna iz fajla.
+     *
+     * @param putanja putanja JSON fajla koji sadrzi izvezenu listu racuna
+     * @return ukupan prihod, kao suma ukupnih iznosa svih racuna iz fajla
+     * @throws IOException ako dodje do greske prilikom citanja fajla
+     */
     public static double izracunajUkupanPrihod(String putanja) throws IOException {
         try (FileReader reader = new FileReader(putanja)) {
             JsonArray niz = JsonParser.parseReader(reader).getAsJsonArray();
@@ -164,7 +217,14 @@ public class JsonUtil {
         }
     }
 
-
+    /**
+     * Dobavlja trenutni kurs RSD u EUR pozivanjem eksternog web servisa
+     * (open.er-api.com).
+     *
+     * @return kurs RSD u EUR (koliko EUR vredi 1 RSD)
+     * @throws Exception ako dodje do greske prilikom poziva web servisa
+     *         ili obrade odgovora
+     */
     public static double vratiKursRsdEur() throws Exception {
         String urlString = "https://open.er-api.com/v6/latest/RSD";
 
