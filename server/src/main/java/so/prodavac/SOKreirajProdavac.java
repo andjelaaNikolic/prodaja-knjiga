@@ -10,12 +10,32 @@ import model.Knjiga;
 import model.PrSS;
 import model.Prodavac;
 
-
+/**
+ * Sistemska operacija za kreiranje novog prodavca.
+ * Pre kreiranja proverava da li prodavac sa istim korisnickim imenom i
+ * emailom vec postoji u bazi podataka. Po uspesnom kreiranju prodavca,
+ * upisuju se i njegove strucne spreme ({@link PrSS}) ukoliko su prosledjene.
+ *
+ * @author Andjela
+ * @see Prodavac
+ * @see PrSS
+ */
 public class SOKreirajProdavac extends OpsteSistemskeOperacije {
     
+    /** Indikator uspesnosti kreiranja prodavca. */
     private boolean uspesno=false;
+    /** Indikator da li prodavac sa istim korisnickim imenom i emailom vec postoji u bazi podataka. */
     private boolean postoji=false;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * prodavac sa istim korisnickim imenom i emailom vec postoji u bazi
+     * podataka.
+     *
+     * @param param objekat tipa {@link Prodavac} koji se kreira
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Prodavac)){
@@ -37,6 +57,16 @@ public class SOKreirajProdavac extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava kreiranje prodavca u bazi podataka. Prodavac se upisuje samo
+     * ukoliko jos uvek ne postoji u bazi. Nakon upisa prodavca, ucitava se
+     * njegov generisani ID iz baze i, ukoliko postoje prosledjene strucne
+     * spreme, one se takodje upisuju povezane sa novokreiranim prodavcem.
+     *
+     * @param param objekat tipa {@link Prodavac} koji se kreira
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         
@@ -61,6 +91,11 @@ public class SOKreirajProdavac extends OpsteSistemskeOperacije {
     }  
     }
 
+    /**
+     * Vraca indikator uspesnosti kreiranja prodavca.
+     *
+     * @return true ako je prodavac uspesno kreiran, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
@@ -68,3 +103,4 @@ public class SOKreirajProdavac extends OpsteSistemskeOperacije {
     
     
 }
+

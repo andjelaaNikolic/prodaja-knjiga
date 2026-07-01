@@ -13,14 +13,29 @@ import model.Kupac;
 import java.sql.PreparedStatement;
 
 /**
+ * Sistemska operacija za promenu podataka postojeceg kupca.
+ * Pre izmene proverava da li drugi kupac sa istim brojem telefona vec
+ * postoji u bazi podataka.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Kupac
  */
 public class SOPromeniKupac extends OpsteSistemskeOperacije {
     
+    /** Indikator uspesnosti izmene kupca. */
     private boolean uspesno=false;
+    /** Indikator da li drugi kupac sa istim brojem telefona vec postoji u bazi podataka. */
     private boolean postoji = false;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * drugi kupac (razlicit od onog koji se menja) sa istim brojem telefona
+     * vec postoji u bazi podataka.
+     *
+     * @param param objekat tipa {@link Kupac} koji se menja
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param == null||!(param instanceof Kupac)){
@@ -44,6 +59,14 @@ public class SOPromeniKupac extends OpsteSistemskeOperacije {
 
     }
 
+    /**
+     * Izvrsava izmenu podataka kupca u bazi podataka. Izmena se sprovodi
+     * samo ukoliko drugi kupac sa istim brojem telefona ne postoji.
+     *
+     * @param param objekat tipa {@link Kupac} koji se menja
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
        if(postoji!=true){
@@ -52,6 +75,11 @@ public class SOPromeniKupac extends OpsteSistemskeOperacije {
        }
     }
 
+    /**
+     * Vraca indikator uspesnosti izmene kupca.
+     *
+     * @return true ako je kupac uspesno izmenjen, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }

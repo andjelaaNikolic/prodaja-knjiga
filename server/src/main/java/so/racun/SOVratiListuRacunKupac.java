@@ -11,17 +11,32 @@ import model.StavkaRacuna;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
+ * Sistemska operacija za pretragu liste racuna izdatih odredjenom kupcu.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Racun
+ * @see Kupac
  */
 public class SOVratiListuRacunKupac extends OpsteSistemskeOperacije {
     
+    /** Lista racuna izdatih prosledjenom kupcu. */
     private List<Racun> racuni;
 
+    /**
+     * Vraca listu racuna pronadjenih pretragom.
+     *
+     * @return lista racuna izdatih prosledjenom kupcu
+     */
     public List<Racun> getRacuni() {
         return racuni;
     }
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link Racun}
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Racun)) {
@@ -29,6 +44,14 @@ public class SOVratiListuRacunKupac extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava pretragu liste racuna izdatih kupcu prosledjenom kroz kljuc,
+     * i za svaki pronadjeni racun dodatno ucitava listu njegovih stavki.
+     *
+     * @param param objekat tipa {@link Racun}
+     * @param kljuc objekat tipa {@link Kupac} po kojem se racuni pretrazuju
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         Kupac kupac = (Kupac) kljuc;
@@ -45,3 +68,4 @@ public class SOVratiListuRacunKupac extends OpsteSistemskeOperacije {
     }
     
 }
+

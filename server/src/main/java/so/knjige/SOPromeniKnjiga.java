@@ -11,14 +11,29 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import model.Knjiga;
 /**
+ * Sistemska operacija za promenu podataka postojece knjige.
+ * Pre izmene proverava da li druga knjiga sa istim naslovom vec postoji u
+ * bazi podataka.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Knjiga
  */
 public class SOPromeniKnjiga extends OpsteSistemskeOperacije {
     
+    /**  Vrednost koja oznacava uspesnost izmene knjige. */
     private boolean uspesno=false;
+    /**  Vrednost koja oznacava da li druga knjiga sa istim naslovom vec postoji u bazi podataka. */
     private boolean postoji=false;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * druga knjiga (razlicita od one koja se menja) sa istim naslovom vec
+     * postoji u bazi podataka.
+     *
+     * @param param objekat tipa {@link Knjiga} koji se menja
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Knjiga)){
@@ -40,6 +55,14 @@ public class SOPromeniKnjiga extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava izmenu podataka knjige u bazi podataka. Izmena se sprovodi
+     * samo ukoliko druga knjiga sa istim naslovom ne postoji.
+     *
+     * @param param objekat tipa {@link Knjiga} koji se menja
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(postoji!=true){
@@ -49,6 +72,11 @@ public class SOPromeniKnjiga extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca indikator uspesnosti izmene knjige.
+     *
+     * @return true ako je knjiga uspesno izmenjena, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }

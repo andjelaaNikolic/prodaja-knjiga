@@ -12,13 +12,24 @@ import model.StrSprema;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
+ * Sistemska operacija za pretragu liste prodavaca koji poseduju odredjenu
+ * strucnu spremu.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Prodavac
+ * @see StrSprema
  */
 public class SOVratiListuProdavacStrSprema extends OpsteSistemskeOperacije {
     
+    /** Lista prodavaca koji poseduju prosledjenu strucnu spremu. */
     private List<Prodavac> prodavci;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link Prodavac}
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Prodavac)){
@@ -27,6 +38,14 @@ public class SOVratiListuProdavacStrSprema extends OpsteSistemskeOperacije {
          
     }
 
+    /**
+     * Izvrsava pretragu liste prodavaca koji poseduju strucnu spremu
+     * prosledjenu kroz kljuc.
+     *
+     * @param param objekat tipa {@link Prodavac}
+     * @param kljuc objekat tipa {@link StrSprema} po kojoj se prodavci pretrazuju
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         
@@ -38,6 +57,11 @@ public class SOVratiListuProdavacStrSprema extends OpsteSistemskeOperacije {
 
     }
 
+    /**
+     * Vraca listu prodavaca pronadjenih pretragom.
+     *
+     * @return lista prodavaca koji poseduju prosledjenu strucnu spremu
+     */
     public List<Prodavac> getProdavci() {
         return prodavci;
     }
@@ -45,3 +69,4 @@ public class SOVratiListuProdavacStrSprema extends OpsteSistemskeOperacije {
     
     
 }
+

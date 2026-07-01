@@ -11,14 +11,28 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 /**
+ * Sistemska operacija za brisanje kupca.
+ * Pre brisanja proverava da li kupac vec ima izdate racune, jer se u tom
+ * slucaju brisanje ne sme dozvoliti.
  *
  * @author Andjela
+ * @see Kupac
  */
 public class SOObrisiKupac extends OpsteSistemskeOperacije {
 
+    /** Indikator uspesnosti brisanja kupca. */
     private boolean uspesno=false;
+    /** Indikator da li kupac vec ima izdate racune. */
     private boolean koristiSe=false;
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * kupac koji se brise vec ima izdate racune.
+     *
+     * @param param objekat tipa {@link Kupac} koji se brise
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null||!(param instanceof Kupac)){
@@ -40,6 +54,14 @@ public class SOObrisiKupac extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Izvrsava brisanje kupca iz baze podataka. Kupac se brise samo ukoliko
+     * nema izdatih racuna.
+     *
+     * @param param objekat tipa {@link Kupac} koji se brise
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(koristiSe!=true){
@@ -48,6 +70,11 @@ public class SOObrisiKupac extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca indikator uspesnosti brisanja kupca.
+     *
+     * @return true ako je kupac uspesno obrisan, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
@@ -55,3 +82,4 @@ public class SOObrisiKupac extends OpsteSistemskeOperacije {
     
     
 }
+

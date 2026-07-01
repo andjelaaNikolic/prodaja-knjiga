@@ -10,19 +10,33 @@ import model.StavkaRacuna;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
+ * Sistemska operacija za pretragu liste racuna na osnovu ukupnog iznosa.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Racun
  */
 public class SOVratiListuRacunRacun extends OpsteSistemskeOperacije {
 
+    /** Lista racuna koji odgovaraju uslovu pretrage. */
     private List<Racun> racuni;
 
+    /**
+     * Vraca listu racuna pronadjenih pretragom.
+     *
+     * @return lista racuna koji odgovaraju uslovu pretrage
+     */
     public List<Racun> getRacuni() {
         return racuni;
     }
     
     
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link Racun}
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Racun)) {
@@ -30,6 +44,15 @@ public class SOVratiListuRacunRacun extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava pretragu liste racuna cij ukupan iznos odgovara prosledjenom
+     * kljucu, i za svaki pronadjeni racun dodatno ucitava listu njegovih
+     * stavki.
+     *
+     * @param param objekat tipa {@link Racun}
+     * @param kljuc ukupan iznos (tipa double) po kojem se racuni pretrazuju
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         double iznos = (double) kljuc;

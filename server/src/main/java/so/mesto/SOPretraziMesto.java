@@ -8,13 +8,22 @@ import model.Mesto;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
+ * Sistemska operacija za pretragu jednog mesta na osnovu njegovog ID-a.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Mesto
  */
 public class SOPretraziMesto extends OpsteSistemskeOperacije {
     
+    /** Mesto pronadjeno pretragom. */
     Mesto mesto;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link Mesto} koji se koristi za pretragu
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param == null || !(param instanceof Mesto)){
@@ -23,6 +32,13 @@ public class SOPretraziMesto extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Izvrsava pretragu mesta na osnovu ID-a prosledjenog mesta.
+     *
+     * @param param objekat tipa {@link Mesto} koji sadrzi ID za pretragu
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         String uslov = " WHERE idMesto = " + ((Mesto) param).getIdMesto();
@@ -30,6 +46,11 @@ public class SOPretraziMesto extends OpsteSistemskeOperacije {
        this.mesto=mesto;
     }
 
+    /**
+     * Vraca mesto pronadjeno pretragom.
+     *
+     * @return pronadjeno mesto, ili null ako mesto nije pronadjeno
+     */
     public Mesto getMesto() {
         return mesto;
     }
@@ -37,3 +58,4 @@ public class SOPretraziMesto extends OpsteSistemskeOperacije {
     
     
 }
+

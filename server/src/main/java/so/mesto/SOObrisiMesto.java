@@ -11,14 +11,28 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
+ * Sistemska operacija za brisanje mesta.
+ * Pre brisanja proverava da li mesto vec koristi neki kupac, jer se u tom
+ * slucaju brisanje ne sme dozvoliti.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Mesto
  */
 public class SOObrisiMesto extends OpsteSistemskeOperacije {
 
+    /** Indikator da li mesto vec koristi neki kupac. */
     private boolean koristiSe=false;
+    /** Indikator uspesnosti brisanja mesta. */
     private boolean uspesno=false;
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * mesto koje se brise vec koristi neki kupac.
+     *
+     * @param param objekat tipa {@link Mesto} koji se brise
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
                 if (param == null || !(param instanceof Mesto)) {
@@ -40,6 +54,14 @@ public class SOObrisiMesto extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava brisanje mesta iz baze podataka. Mesto se brise samo ukoliko
+     * ga ne koristi nijedan kupac.
+     *
+     * @param param objekat tipa {@link Mesto} koji se brise
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(koristiSe!=true){
@@ -49,6 +71,11 @@ public class SOObrisiMesto extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Vraca indikator uspesnosti brisanja mesta.
+     *
+     * @return true ako je mesto uspesno obrisano, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }

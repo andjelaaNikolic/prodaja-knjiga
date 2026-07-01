@@ -12,14 +12,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * Sistemska operacija za promenu podataka postojeceg mesta.
+ * Pre izmene proverava da li drugo mesto sa istim nazivom vec postoji u
+ * bazi podataka.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Mesto
  */
 public class SOPromeniMesto extends OpsteSistemskeOperacije {
 
+    /** Indikator da li drugo mesto sa istim nazivom vec postoji u bazi podataka. */
     private boolean postoji=false;
+    /** Indikator uspesnosti izmene mesta. */
     private boolean uspesno=false;
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * mesto sa istim nazivom vec postoji u bazi podataka.
+     *
+     * @param param objekat tipa {@link Mesto} koji se menja
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Mesto)){
@@ -43,6 +57,14 @@ public class SOPromeniMesto extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Izvrsava izmenu podataka mesta u bazi podataka. Izmena se sprovodi
+     * samo ukoliko mesto sa istim nazivom ne postoji.
+     *
+     * @param param objekat tipa {@link Mesto} koji se menja
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(postoji!=true){
@@ -51,6 +73,11 @@ public class SOPromeniMesto extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca indikator uspesnosti izmene mesta.
+     *
+     * @return true ako je mesto uspesno izmenjeno, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }

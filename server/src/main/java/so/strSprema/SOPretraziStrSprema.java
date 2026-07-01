@@ -8,14 +8,23 @@ import model.StrSprema;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
+ * Sistemska operacija za pretragu jedne strucne spreme na osnovu njenog ID-a.
  *
  * @author Andjela
+ * @see StrSprema
  */
 public class SOPretraziStrSprema extends OpsteSistemskeOperacije {
     
+    /** Strucna sprema pronadjena pretragom. */
     private StrSprema ss;
     
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link StrSprema} koji se koristi za pretragu
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null||!(param instanceof StrSprema)){
@@ -23,6 +32,14 @@ public class SOPretraziStrSprema extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava pretragu strucne spreme na osnovu ID-a prosledjene strucne
+     * spreme.
+     *
+     * @param param objekat tipa {@link StrSprema} koji sadrzi ID za pretragu
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         
@@ -33,6 +50,11 @@ public class SOPretraziStrSprema extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Vraca strucnu spremu pronadjenu pretragom.
+     *
+     * @return pronadjena strucna sprema, ili null ako nije pronadjena
+     */
     public StrSprema getSs() {
         return ss;
     }

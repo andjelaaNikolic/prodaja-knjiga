@@ -12,14 +12,31 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 /**
+ * Sistemska operacija za kreiranje novog magacina.
+ * Pre kreiranja proverava da li su naziv i adresa magacina validni, i da li
+ * magacin sa istim nazivom vec postoji u bazi podataka.
  *
  * @author Andjela
+ * @see Magacin
  */
 public class SOUbaciMagacin extends OpsteSistemskeOperacije {
 
+    /** Indikator da li magacin sa istim nazivom vec postoji u bazi podataka. */
     private boolean postoji=false;
+    
+    /** Indikator uspesnosti kreiranja magacina. */
     private boolean uspesno=false;
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa, da li su
+     * naziv i adresa magacina validni, i da li magacin sa istim nazivom vec
+     * postoji u bazi podataka.
+     *
+     * @param param objekat tipa {@link Magacin} koji se kreira
+     * @throws Exception ako parametar nije odgovarajuceg tipa, ili ako naziv
+     *         ili adresa magacina nisu validni
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Magacin)){
@@ -47,6 +64,14 @@ public class SOUbaciMagacin extends OpsteSistemskeOperacije {
             throw ex;
         }
     }
+    /**
+     * Izvrsava kreiranje magacina u bazi podataka. Magacin se upisuje samo
+     * ukoliko magacin sa istim nazivom jos uvek ne postoji u bazi.
+     *
+     * @param param objekat tipa {@link Magacin} koji se kreira
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(postoji!=true){
@@ -55,8 +80,14 @@ public class SOUbaciMagacin extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca indikator uspesnosti kreiranja magacina.
+     *
+     * @return true ako je magacin uspesno kreiran, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
     
 }
+

@@ -12,14 +12,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * Sistemska operacija za brisanje strucne spreme.
+ * Pre brisanja proverava da li strucnu spremu vec poseduje neki prodavac,
+ * jer se u tom slucaju brisanje ne sme dozvoliti.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see StrSprema
  */
 public class SOObrisiStrSprema extends OpsteSistemskeOperacije {
     
+    /** Indikator uspesnosti brisanja strucne spreme. */
     private boolean uspesno = false;
+    
+    /** Indikator da li strucnu spremu vec poseduje neki prodavac. */
     private boolean koristiSe=false;
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * strucnu spremu koja se brise vec poseduje neki prodavac.
+     *
+     * @param param objekat tipa {@link StrSprema} koji se brise
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof StrSprema)){
@@ -43,6 +58,14 @@ public class SOObrisiStrSprema extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Izvrsava brisanje strucne spreme iz baze podataka. Strucna sprema se
+     * brise samo ukoliko je ne poseduje nijedan prodavac.
+     *
+     * @param param objekat tipa {@link StrSprema} koji se brise
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(koristiSe!=true){
@@ -51,6 +74,11 @@ public class SOObrisiStrSprema extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca indikator uspesnosti brisanja strucne spreme.
+     *
+     * @return true ako je strucna sprema uspesno obrisana, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
@@ -58,3 +86,4 @@ public class SOObrisiStrSprema extends OpsteSistemskeOperacije {
     
     
 }
+

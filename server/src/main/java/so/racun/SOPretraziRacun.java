@@ -10,13 +10,24 @@ import model.StavkaRacuna;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
+ * Sistemska operacija za pretragu jednog racuna na osnovu njegovog ID-a,
+ * zajedno sa svim njegovim stavkama.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Racun
+ * @see StavkaRacuna
  */
 public class SOPretraziRacun extends OpsteSistemskeOperacije {
     
+    /** Racun pronadjen pretragom. */
     private Racun racun;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link Racun} koji se koristi za pretragu
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Racun)) {
@@ -24,6 +35,15 @@ public class SOPretraziRacun extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava pretragu racuna na osnovu ID-a prosledjenog racuna, zajedno
+     * sa prodavcem, kupcem i njegovim mestom. Nakon dobavljanja racuna,
+     * dodatno se ucitava i lista njegovih stavki.
+     *
+     * @param param objekat tipa {@link Racun} koji sadrzi ID za pretragu
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
        
@@ -38,6 +58,11 @@ public class SOPretraziRacun extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Vraca racun pronadjen pretragom.
+     *
+     * @return pronadjeni racun, ili null ako racun nije pronadjen
+     */
     public Racun getRacun() {
         return racun;
     }
@@ -45,3 +70,4 @@ public class SOPretraziRacun extends OpsteSistemskeOperacije {
     
     
 }
+

@@ -12,12 +12,21 @@ import model.Kupac;
 
 
 /**
+ * Sistemska operacija za pretragu jednog kupca na osnovu njegovog ID-a.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Kupac
  */
 public class SOPretraziKupac extends OpsteSistemskeOperacije {
 
+    /** Kupac pronadjen pretragom. */
     private Kupac k;
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link Kupac} koji se koristi za pretragu
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Kupac)){
@@ -25,6 +34,13 @@ public class SOPretraziKupac extends OpsteSistemskeOperacije {
          }
     }
 
+    /**
+     * Izvrsava pretragu kupca na osnovu ID-a prosledjenog kupca.
+     *
+     * @param param objekat tipa {@link Kupac} koji sadrzi ID za pretragu
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         String uslov= " JOIN mesto ON kupac.mesto=mesto.idMesto WHERE idKupac="+((Kupac)param).getIdKupac();
@@ -32,6 +48,11 @@ public class SOPretraziKupac extends OpsteSistemskeOperacije {
         this.k = k;
     }
 
+    /**
+     * Vraca kupca pronadjenog pretragom.
+     *
+     * @return pronadjeni kupac, ili null ako kupac nije pronadjen
+     */
     public Kupac getK() {
         return k;
     }

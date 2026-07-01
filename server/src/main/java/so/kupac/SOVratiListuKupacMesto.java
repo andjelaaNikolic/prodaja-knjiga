@@ -12,17 +12,34 @@ import model.Mesto;
 
 
 /**
+ * Sistemska operacija za pretragu liste kupaca na osnovu mesta u kojem zive.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Kupac
+ * @see Mesto
  */
 public class SOVratiListuKupacMesto extends OpsteSistemskeOperacije {
 
+    /** Lista kupaca koji zive u prosledjenom mestu. */
     private List<Kupac> kupci;
+    /**
+     * Ova operacija nema dodatnih preduslova.
+     *
+     * @param param nije koriscen u ovoj operaciji
+     * @throws Exception nikada se ne baca u ovoj implementaciji
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         
     }
 
+    /**
+     * Izvrsava pretragu liste kupaca koji zive u prosledjenom mestu.
+     *
+     * @param param objekat tipa {@link Kupac}
+     * @param kljuc objekat tipa {@link Mesto} po kojem se kupci pretrazuju
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         Mesto mesto = (Mesto) kljuc;
@@ -33,6 +50,11 @@ public class SOVratiListuKupacMesto extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Vraca listu kupaca pronadjenih pretragom.
+     *
+     * @return lista kupaca koji zive u prosledjenom mestu
+     */
     public List<Kupac> getKupci() {
         return kupci;
     }

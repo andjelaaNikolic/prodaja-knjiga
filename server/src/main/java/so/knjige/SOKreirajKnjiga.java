@@ -10,15 +10,34 @@ import sistemske.operacije.OpsteSistemskeOperacije;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 /**
+ * Sistemska operacija za kreiranje nove knjige.
+ * Pre kreiranja proverava da li su vrednosti atributa knjige validne i da li
+ * knjiga sa istim naslovom vec postoji u bazi podataka.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Knjiga
  */
 public class SOKreirajKnjiga extends OpsteSistemskeOperacije {
     
+    /** Vrednost koja oznacava uspesnost kreiranja knjige. */
     private boolean uspesno=false;
+    
+    /** Vrednost koja oznacava da li knjiga sa istim naslovom vec postoji u bazi podataka. */
     private boolean postoji=false;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa, da li su
+     * vrednosti atributa knjige validne (naslov, zanr, godina izdanja, cena,
+     * kolicina i magacin), i da li knjiga sa istim naslovom vec postoji u
+     * bazi podataka.
+     *
+     * @param param objekat tipa {@link Knjiga} koji se kreira
+     * @throws Exception ako parametar nije odgovarajuceg tipa, ili ako
+     *         vrednosti atributa nisu validne
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Knjiga)){
@@ -60,6 +79,14 @@ public class SOKreirajKnjiga extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Izvrsava kreiranje knjige u bazi podataka. Knjiga se upisuje samo
+     * ukoliko knjiga sa istim naslovom jos uvek ne postoji u bazi.
+     *
+     * @param param objekat tipa {@link Knjiga} koji se kreira
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(postoji!=true){
@@ -69,6 +96,11 @@ public class SOKreirajKnjiga extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Vraca true ako je knjiga uspesno kreirana i false ako nije.
+     *
+     * @return true ako je knjiga uspesno kreirana, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
@@ -77,3 +109,4 @@ public class SOKreirajKnjiga extends OpsteSistemskeOperacije {
     
     
 }
+

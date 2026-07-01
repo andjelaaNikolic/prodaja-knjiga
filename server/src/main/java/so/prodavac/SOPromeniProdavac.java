@@ -15,11 +15,34 @@ import java.util.ArrayList;
 import java.util.Date;
 import model.PrSS;
 import model.StrSprema;
+
+/**
+ * Sistemska operacija za promenu podataka postojeceg prodavca, ukljucujuci
+ * i uskladjivanje njegove liste strucnih sprema ({@link PrSS}) sa stanjem u
+ * bazi podataka (dodavanje novih, izmena postojecih i brisanje onih koje
+ * vise nisu prisutne u prosledjenoj listi).
+ *
+ * @author Andjela
+ * @see Prodavac
+ * @see PrSS
+ */
 public class SOPromeniProdavac extends OpsteSistemskeOperacije {
 
+    /** Indikator da li lista strucnih sprema prodavca sadrzi duplirane unose (ista strucna sprema i institucija). */
     private boolean postoji = false;
+    /** Indikator uspesnosti izmene prodavca. */
     private boolean uspesno = false;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa, da li je
+     * lista strucnih sprema prodavca postavljena, i da li ta lista sadrzi
+     * dva unosa sa istom strucnom spremom i institucijom (sto nije
+     * dozvoljeno).
+     *
+     * @param param objekat tipa {@link Prodavac} koji se menja
+     * @throws Exception ako parametar nije odgovarajuceg tipa, ili ako
+     *         lista strucnih sprema nije postavljena
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Prodavac)) {
@@ -43,6 +66,16 @@ public class SOPromeniProdavac extends OpsteSistemskeOperacije {
 
     }
 
+    /**
+     * Izvrsava izmenu podataka prodavca u bazi podataka. Uporedjuje
+     * prosledjenu listu strucnih sprema sa onom iz baze: postojece unose
+     * azurira, nove dodaje, a one koji vise nisu prisutni u prosledjenoj
+     * listi brise. Na kraju azurira i osnovne podatke prodavca.
+     *
+     * @param param objekat tipa {@link Prodavac} koji se menja
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         Prodavac prodavac = (Prodavac) param;
@@ -89,9 +122,15 @@ public class SOPromeniProdavac extends OpsteSistemskeOperacije {
 
     }
 
+    /**
+     * Vraca indikator uspesnosti izmene prodavca.
+     *
+     * @return true ako je prodavac uspesno izmenjen, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
 
 
 }
+

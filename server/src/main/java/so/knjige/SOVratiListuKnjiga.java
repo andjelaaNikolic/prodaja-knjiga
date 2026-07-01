@@ -10,14 +10,23 @@ import sistemske.operacije.OpsteSistemskeOperacije;
 
 
 /**
+ * Sistemska operacija za pretragu liste knjiga na osnovu naslova.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Knjiga
  */
 public class SOVratiListuKnjiga extends OpsteSistemskeOperacije {
     
    
+    /** Lista knjiga koje odgovaraju uslovu pretrage. */
     List<Knjiga> knjige;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link Knjiga}
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
       if (param == null || !(param instanceof Knjiga)) {
@@ -25,6 +34,13 @@ public class SOVratiListuKnjiga extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava pretragu liste knjiga cij naslov odgovara prosledjenom kljucu.
+     *
+     * @param param objekat tipa {@link Knjiga}
+     * @param kljuc naslov (ili deo naslova) po kojem se knjige pretrazuju
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         String upit = "";
@@ -43,8 +59,14 @@ public class SOVratiListuKnjiga extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca listu knjiga pronadjenih pretragom.
+     *
+     * @return lista knjiga koje odgovaraju uslovu pretrage
+     */
     public List<Knjiga> getKnjige() {
         return knjige;
     }
     
 }
+

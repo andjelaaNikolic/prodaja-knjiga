@@ -10,13 +10,24 @@ import model.Prodavac;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
+ * Sistemska operacija za pretragu jednog prodavca na osnovu njegovog ID-a,
+ * zajedno sa listom njegovih strucnih sprema.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Prodavac
+ * @see PrSS
  */
 public class SOPretraziProdavac extends OpsteSistemskeOperacije {
 
+    /** Prodavac pronadjen pretragom. */
     private Prodavac p;
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa.
+     *
+     * @param param objekat tipa {@link Prodavac} koji se koristi za pretragu
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Prodavac)){
@@ -24,6 +35,15 @@ public class SOPretraziProdavac extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava pretragu prodavca na osnovu ID-a prosledjenog prodavca.
+     * Ukoliko je prodavac pronadjen, dodatno se ucitava i njegova lista
+     * strucnih sprema.
+     *
+     * @param param objekat tipa {@link Prodavac} koji sadrzi ID za pretragu
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
        String upit = " WHERE idProdavac="+((Prodavac)param).getIdProdavac();
@@ -39,6 +59,11 @@ public class SOPretraziProdavac extends OpsteSistemskeOperacije {
        this.p = p;
     }
 
+    /**
+     * Vraca prodavca pronadjenog pretragom.
+     *
+     * @return pronadjeni prodavac, ili null ako prodavac nije pronadjen
+     */
     public Prodavac getP() {
         return p;
     }
@@ -46,3 +71,4 @@ public class SOPretraziProdavac extends OpsteSistemskeOperacije {
     
     
 }
+

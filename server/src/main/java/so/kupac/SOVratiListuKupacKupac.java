@@ -9,18 +9,37 @@ import model.Kupac;
 import sistemske.operacije.OpsteSistemskeOperacije;
 
 /**
+ * Sistemska operacija za pretragu liste kupaca na osnovu imena i/ili prezimena.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Kupac
  */
 public class SOVratiListuKupacKupac extends OpsteSistemskeOperacije {
     
+    /** Lista kupaca koji odgovaraju uslovu pretrage. */
     private List<Kupac> kupci;
 
+    /**
+     * Ova operacija nema dodatnih preduslova.
+     *
+     * @param param nije koriscen u ovoj operaciji
+     * @throws Exception nikada se ne baca u ovoj implementaciji
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         
     }
 
+    /**
+     * Izvrsava pretragu liste kupaca cije ime i/ili prezime odgovara
+     * prosledjenom kljucu. Ukoliko kljuc sadrzi dve reci, pretraga se vrsi
+     * po kombinaciji imena i prezimena (u oba redosleda), a inace po imenu
+     * ili prezimenu.
+     *
+     * @param param objekat tipa {@link Kupac}
+     * @param kljuc ime i/ili prezime po kojem se kupci pretrazuju
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         String[] imePrezime = ((String) kljuc).split(" ");
@@ -36,6 +55,11 @@ public class SOVratiListuKupacKupac extends OpsteSistemskeOperacije {
 
     }
 
+    /**
+     * Vraca listu kupaca pronadjenih pretragom.
+     *
+     * @return lista kupaca koji odgovaraju uslovu pretrage
+     */
     public List<Kupac> getKupci() {
         return kupci;
     }
@@ -43,3 +67,4 @@ public class SOVratiListuKupacKupac extends OpsteSistemskeOperacije {
     
     
 }
+

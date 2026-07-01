@@ -13,14 +13,32 @@ import model.Knjiga;
 import model.StavkaRacuna;
 
 /**
+ * Sistemska operacija za promenu podataka postojeceg racuna, ukljucujuci i
+ * uskladjivanje njegove liste stavki ({@link StavkaRacuna}) sa stanjem u
+ * bazi podataka.
+ * Pre izmene proverava da li se u prosledjenoj listi stavki nalaze dve
+ * razlicite stavke koje se odnose na istu knjigu, sto nije dozvoljeno.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Racun
+ * @see StavkaRacuna
  */
 public class SOPromeniRacun extends OpsteSistemskeOperacije {
 
+    /** Indikator da li prosledjena lista stavki sadrzi dve razlicite stavke sa istom knjigom. */
     private boolean postoji=false;
+    /** Indikator uspesnosti izmene racuna. */
     private boolean uspesno=false;
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa, i da li
+     * se u prosledjenoj listi stavki racuna nalaze dve razlicite stavke
+     * (razlicitog rednog broja) koje se odnose na istu knjigu.
+     *
+     * @param param objekat tipa {@link Racun} koji se menja
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
        if (param == null || !(param instanceof Racun)) {
@@ -54,6 +72,16 @@ public class SOPromeniRacun extends OpsteSistemskeOperacije {
        
     }
 
+    /**
+     * Izvrsava izmenu podataka racuna u bazi podataka. Uporedjuje
+     * prosledjenu listu stavki sa onom iz baze: postojece stavke azurira, a
+     * nove (koje jos nisu u bazi) dodaje povezane sa racunom. Na kraju
+     * azurira i osnovne podatke racuna.
+     *
+     * @param param objekat tipa {@link Racun} koji se menja
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(postoji!=true){
@@ -90,6 +118,11 @@ public class SOPromeniRacun extends OpsteSistemskeOperacije {
     } 
 
 
+    /**
+     * Vraca indikator uspesnosti izmene racuna.
+     *
+     * @return true ako je racun uspesno izmenjen, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
@@ -97,3 +130,4 @@ public class SOPromeniRacun extends OpsteSistemskeOperacije {
     
     
 }
+

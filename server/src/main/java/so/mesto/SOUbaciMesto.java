@@ -11,14 +11,30 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 /**
+ * Sistemska operacija za kreiranje novog mesta.
+ * Pre kreiranja proverava da li je naziv mesta validan, i da li mesto sa
+ * istim nazivom vec postoji u bazi podataka.
  *
  * @author Andjela
+ * @see Mesto
  */
 public class SOUbaciMesto extends OpsteSistemskeOperacije {
 
+    /** Indikator da li mesto sa istim nazivom vec postoji u bazi podataka. */
     private boolean postoji=false;
+    /** Indikator uspesnosti kreiranja mesta. */
     private boolean uspesno=false;
     
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa, da li je
+     * naziv mesta validan, i da li mesto sa istim nazivom vec postoji u
+     * bazi podataka.
+     *
+     * @param param objekat tipa {@link Mesto} koji se kreira
+     * @throws Exception ako parametar nije odgovarajuceg tipa, ili ako naziv
+     *         mesta nije validan
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Mesto)){
@@ -48,6 +64,14 @@ public class SOUbaciMesto extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Izvrsava kreiranje mesta u bazi podataka. Mesto se upisuje samo
+     * ukoliko mesto sa istim nazivom jos uvek ne postoji u bazi.
+     *
+     * @param param objekat tipa {@link Mesto} koji se kreira
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(postoji!=true){
@@ -56,6 +80,11 @@ public class SOUbaciMesto extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca indikator uspesnosti kreiranja mesta.
+     *
+     * @return true ako je mesto uspesno kreirano, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
@@ -65,3 +94,4 @@ public class SOUbaciMesto extends OpsteSistemskeOperacije {
     
     
 }
+

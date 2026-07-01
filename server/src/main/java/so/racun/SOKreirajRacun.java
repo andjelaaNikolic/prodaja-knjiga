@@ -15,14 +15,34 @@ import java.util.Date;
 import model.StavkaRacuna;
 import java.sql.PreparedStatement;
 /**
+ * Sistemska operacija za kreiranje novog racuna, zajedno sa svim njegovim
+ * stavkama ({@link StavkaRacuna}).
+ * Pre kreiranja proverava da li racun sa identicnim stavkama (isti datum,
+ * ukupan iznos, prodavac i kupac, kao i podudarajuce stavke) vec postoji u
+ * bazi podataka.
  *
  * @author Andjela
+ * @see Racun
+ * @see StavkaRacuna
  */
 public class SOKreirajRacun extends OpsteSistemskeOperacije {
     
+    /** Indikator da li racun sa identicnim stavkama vec postoji u bazi podataka. */
     private boolean postoji=false;
+    
+    /** Indikator uspesnosti kreiranja racuna. */
     private boolean uspesno=false;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa, i da li
+     * racun sa istim datumom, ukupnim iznosom, prodavcem i kupcem, cije se
+     * sve stavke poklapaju sa prosledjenim stavkama, vec postoji u bazi
+     * podataka.
+     *
+     * @param param objekat tipa {@link Racun} koji se kreira
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Racun)) {
@@ -66,6 +86,16 @@ public class SOKreirajRacun extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Izvrsava kreiranje racuna u bazi podataka. Racun se upisuje samo
+     * ukoliko istovetan racun jos ne postoji. Nakon upisa racuna, ucitava
+     * se njegov generisani ID iz baze i svaka stavka racuna se povezuje sa
+     * tim racunom i upisuje u bazu.
+     *
+     * @param param objekat tipa {@link Racun} koji se kreira
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         
@@ -101,6 +131,11 @@ public class SOKreirajRacun extends OpsteSistemskeOperacije {
         
     }
 
+    /**
+     * Vraca indikator uspesnosti kreiranja racuna.
+     *
+     * @return true ako je racun uspesno kreiran, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
@@ -108,3 +143,4 @@ public class SOKreirajRacun extends OpsteSistemskeOperacije {
     
     
 }
+

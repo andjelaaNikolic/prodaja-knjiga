@@ -13,14 +13,29 @@ import java.sql.ResultSet;
 
 
 /**
+ * Sistemska operacija za brisanje prodavca.
+ * Pre brisanja proverava da li prodavac vec ima izdate racune ili unete
+ * strucne spreme, jer se u tom slucaju brisanje ne sme dozvoliti.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Prodavac
  */
 public class SOObrisiProdavac extends OpsteSistemskeOperacije {
     
+    /** Indikator uspesnosti brisanja prodavca. */
     private boolean uspesno=false;
+    /** Indikator da li prodavac vec ima izdate racune ili unete strucne spreme. */
     private boolean koristiSe=false;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * prodavac koji se brise vec ima izdate racune ili unete strucne
+     * spreme.
+     *
+     * @param param objekat tipa {@link Prodavac} koji se brise
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
        if(param==null || !(param instanceof Prodavac)){
@@ -54,6 +69,14 @@ public class SOObrisiProdavac extends OpsteSistemskeOperacije {
        
     }
 
+    /**
+     * Izvrsava brisanje prodavca iz baze podataka. Prodavac se brise samo
+     * ukoliko nema izdatih racuna niti unetih strucnih sprema.
+     *
+     * @param param objekat tipa {@link Prodavac} koji se brise
+     * @param kljuc nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object kljuc) throws Exception {
         if(koristiSe!=true){
@@ -62,6 +85,11 @@ public class SOObrisiProdavac extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca indikator uspesnosti brisanja prodavca.
+     *
+     * @return true ako je prodavac uspesno obrisan, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
@@ -69,3 +97,4 @@ public class SOObrisiProdavac extends OpsteSistemskeOperacije {
     
     
 }
+

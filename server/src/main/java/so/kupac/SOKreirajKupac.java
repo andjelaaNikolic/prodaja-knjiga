@@ -13,13 +13,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * Sistemska operacija za kreiranje novog kupca.
+ * Pre kreiranja proverava da li kupac sa istim brojem telefona vec postoji
+ * u bazi podataka.
  *
- * @author Ljilja
+ * @author Andjela
+ * @see Kupac
  */
 public class SOKreirajKupac extends OpsteSistemskeOperacije {
+	
+    /** Indikator da li kupac sa istim brojem telefona vec postoji u bazi podataka. */
     private boolean postoji=false;
+    
+    /** Indikator uspesnosti kreiranja kupca. */
     private boolean uspesno = false;
 
+    /**
+     * Proverava da li je prosledjen parametar odgovarajuceg tipa i da li
+     * kupac sa istim brojem telefona vec postoji u bazi podataka.
+     *
+     * @param param objekat tipa {@link Kupac} koji se kreira
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     * @throws SQLException ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Kupac)){
@@ -43,6 +59,14 @@ public class SOKreirajKupac extends OpsteSistemskeOperacije {
 
     }
 
+    /**
+     * Izvrsava kreiranje kupca u bazi podataka. Kupac se upisuje samo
+     * ukoliko kupac sa istim brojem telefona jos uvek ne postoji u bazi.
+     *
+     * @param param objekat tipa {@link Kupac} koji se kreira
+     * @param uslov nije koriscen u ovoj operaciji
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsiOperaciju(Object param, Object uslov) throws Exception {
         if(postoji!=true){
@@ -51,6 +75,11 @@ public class SOKreirajKupac extends OpsteSistemskeOperacije {
         }
     }
 
+    /**
+     * Vraca indikator uspesnosti kreiranja kupca.
+     *
+     * @return true ako je kupac uspesno kreiran, false inace
+     */
     public boolean isUspesno() {
         return uspesno;
     }
