@@ -10,20 +10,39 @@ import java.util.List;
 import java.util.Objects;
 import java.sql.SQLException;
 
-
+/**
+ * Predstavlja mesto koje se koristi za odredjivanje prebivalista kupca.
+ * 
+ *@author Andjela
+ * @see Kupac
+ */
 public class Mesto implements OpstiDomenskiObjekat{
     
+    /** Jedinstveni identifikator mesta u bazi podataka. */
     private int idMesto;
+    /** Naziv mesta. */
     private String nazivMesta;
 
     public Mesto() {
     }
     
+    /**
+     * Konstruktor koji inicijalizuje naziv mesta bez ID-a.
+     * Koristi se prilikom kreiranja novog mesta pre unosa u bazu podataka.
+     *
+     * @param nazivMesta naziv mesta
+     */
      public Mesto( String nazivMesta) {
         
         setNazivMesta(nazivMesta);
     }
 
+    /**
+     * Konstruktor koji inicijalizuje sve atribute mesta ukljucujuci i ID.
+     *
+     * @param idMesto jedinstveni identifikator mesta
+     * @param nazivMesta naziv mesta
+     */
     public Mesto(int idMesto, String nazivMesta) {
     	setIdMesto(idMesto);
         setNazivMesta(nazivMesta);
@@ -33,6 +52,12 @@ public class Mesto implements OpstiDomenskiObjekat{
         return idMesto;
     }
 
+    /**
+     * Postavlja jedinstveni identifikator mesta.
+     *
+     * @param idMesto jedinstveni identifikator mesta, mora biti veci od nule
+     * @throws IllegalArgumentException ako je idMesto manji ili jednak nuli
+     */
     public void setIdMesto(int idMesto) {
  
     	if (idMesto <= 0) {
@@ -46,11 +71,20 @@ public class Mesto implements OpstiDomenskiObjekat{
         return nazivMesta;
     }
 
+    /**
+     * Postavlja naziv mesta.
+     *
+     * @param nazivMesta naziv mesta, ne sme biti null, prazan, sadrzati vise od 50
+     *                   karaktera ili sadrzati znakove koji nisu slova
+     * @throws NullPointerException ako je nazivMesta null
+     * @throws IllegalArgumentException ako je nazivMesta prazan, duzi od 50 karaktera
+     *                                   ili sadrzi znakove koji nisu slova
+     */
     public void setNazivMesta(String nazivMesta) {
     	
        	if (nazivMesta == null)
     			throw new NullPointerException("Naziv mesta ne sme biti null.");
-    		
+    			
        	if (nazivMesta.length() > 50)
     			throw new IllegalArgumentException("Naziv mesta ne sme imati više od 50 karaktera.");
        	
@@ -64,18 +98,35 @@ public class Mesto implements OpstiDomenskiObjekat{
         this.nazivMesta = nazivMesta;
     }
 
+    /**
+     * Vraca tekstualnu reprezentaciju mesta koja sadrzi naziv mesta.
+     *
+     * @return naziv mesta
+     */
     @Override
     public String toString() {
         return nazivMesta;
     }
 
+    /**
+     * Vraca hash kod mesta racunat na osnovu naziva mesta.
+     *
+     * @return hash kod mesta
+     */
     @Override
 	public int hashCode() {
 		return Objects.hash(nazivMesta);
 	}
 
 
-    @Override
+    /**
+     * Poredi ovo mesto sa drugim objektom na osnovu naziva mesta.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return true ako su mesta istog tipa i imaju isti nazivMesta, false ako je
+     *         obj null, ako je obj drugog tipa, ili ako se nazivMesta razlikuju
+     */
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -87,6 +138,11 @@ public class Mesto implements OpstiDomenskiObjekat{
 		return Objects.equals(nazivMesta, other.nazivMesta);
 	}
 
+	/**
+     * Vraca naziv tabele "mesto" u bazi podataka.
+     *
+     * @return naziv tabele "mesto"
+     */
 	@Override
     public String vratiNazivTabele() {
        return "mesto";

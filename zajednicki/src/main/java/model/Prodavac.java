@@ -6,20 +6,47 @@ import java.util.List;
 import java.util.Objects;
 import java.sql.SQLException;
 
-
+/**
+ * Predstavlja prodavca koji obradjuje racune kupaca.
+ * Sadrzi podatke za prijavu prodavca (korisnicko ime i sifra) i listu
+ * strucnih sprema koje prodavac poseduje.
+ * 
+ *@author Andjela
+ * @see PrSS
+ * @see StrSprema
+ * @see Racun
+ */
 public class Prodavac implements OpstiDomenskiObjekat{
+    /** Jedinstveni identifikator prodavca u bazi podataka. */
     private int idProdavac;
+    /** Ime prodavca. */
     private String ime;
+    /** Prezime prodavca. */
     private String prezime;
+    /** Korisnicko ime prodavca koje se koristi za prijavu. */
     private String korisnickoIme;
+    /** Sifra prodavca koja se koristi za prijavu. */
     private String sifra;
+    /** Email prodavca. */
     private String email;
+    /** Lista strucnih sprema koje prodavac poseduje. */
     private List<PrSS> prss;
 
     public Prodavac() {
     }
     
  
+    /**
+     * Konstruktor koji inicijalizuje sve atribute prodavca ukljucujuci i ID.
+     * Lista strucnih sprema se inicijalizuje kao prazna lista.
+     *
+     * @param idProdavac jedinstveni identifikator prodavca
+     * @param ime ime prodavca
+     * @param prezime prezime prodavca
+     * @param korisnickoIme korisnicko ime za prijavu
+     * @param sifra sifra za prijavu
+     * @param email email prodavca
+     */
     public Prodavac(int idProdavac, String ime, String prezime, String korisnickoIme, String sifra, String email) {
     	setIdProdavac(idProdavac);
     	setIme(ime);
@@ -30,6 +57,17 @@ public class Prodavac implements OpstiDomenskiObjekat{
         this.prss=new ArrayList<>();
     }
 
+    /**
+     * Konstruktor koji inicijalizuje atribute prodavca bez ID-a.
+     * Koristi se prilikom kreiranja novog prodavca pre unosa u bazu podataka.
+     * Lista strucnih sprema se inicijalizuje kao prazna lista.
+     *
+     * @param ime ime prodavca
+     * @param prezime prezime prodavca
+     * @param korisnickoIme korisnicko ime za prijavu
+     * @param sifra sifra za prijavu
+     * @param email email prodavca
+     */
     public Prodavac(String ime, String prezime, String korisnickoIme, String sifra, String email) {
     	setIme(ime);
     	setPrezime(prezime);
@@ -43,6 +81,12 @@ public class Prodavac implements OpstiDomenskiObjekat{
         return prss;
     }
 
+    /**
+     * Postavlja listu strucnih sprema prodavca.
+     *
+     * @param prss lista strucnih sprema, ne sme biti null
+     * @throws NullPointerException ako je prss null
+     */
     public void setPrss(List<PrSS> prss) {
     	if(prss==null)
     		throw new NullPointerException("Lista stručnih sprema ne sme biti null.");
@@ -54,6 +98,12 @@ public class Prodavac implements OpstiDomenskiObjekat{
         return idProdavac;
     }
 
+    /**
+     * Postavlja jedinstveni identifikator prodavca.
+     *
+     * @param idProdavac jedinstveni identifikator prodavca, mora biti veci od nule
+     * @throws IllegalArgumentException ako je idProdavac manji ili jednak nuli
+     */
     public void setIdProdavac(int idProdavac) {
     	 if (idProdavac <= 0)
              throw new IllegalArgumentException("ID prodavca mora biti veći od nule.");
@@ -64,6 +114,15 @@ public class Prodavac implements OpstiDomenskiObjekat{
         return ime;
     }
 
+    /**
+     * Postavlja ime prodavca.
+     *
+     * @param ime ime prodavca, ne sme biti null, prazno, duze od 50 karaktera
+     *            ili sadrzati znakove koji nisu slova
+     * @throws NullPointerException ako je ime null
+     * @throws IllegalArgumentException ako je ime prazno, duze od 50 karaktera
+     *                                   ili sadrzi znakove koji nisu slova
+     */
     public void setIme(String ime) {
     	if(ime==null) 
     		throw new NullPointerException("Ime ne sme biti null.");
@@ -83,6 +142,15 @@ public class Prodavac implements OpstiDomenskiObjekat{
         return prezime;
     }
 
+    /**
+     * Postavlja prezime prodavca.
+     *
+     * @param prezime prezime prodavca, ne sme biti null, prazno, duze od 50 karaktera
+     *                ili sadrzati znakove koji nisu slova
+     * @throws NullPointerException ako je prezime null
+     * @throws IllegalArgumentException ako je prezime prazno, duze od 50 karaktera
+     *                                   ili sadrzi znakove koji nisu slova
+     */
     public void setPrezime(String prezime) {
     	if(prezime==null) 
     		throw new NullPointerException("Prezime ne sme biti null.");
@@ -102,6 +170,13 @@ public class Prodavac implements OpstiDomenskiObjekat{
         return korisnickoIme;
     }
 
+    /**
+     * Postavlja korisnicko ime prodavca koje se koristi za prijavu.
+     *
+     * @param korisnickoIme korisnicko ime, ne sme biti null, prazno ili duze od 50 karaktera
+     * @throws NullPointerException ako je korisnickoIme null
+     * @throws IllegalArgumentException ako je korisnickoIme prazno ili duze od 50 karaktera
+     */
     public void setKorisnickoIme(String korisnickoIme) {
     	if(korisnickoIme==null) 
     		throw new NullPointerException("Korisničko ime ne sme biti null.");
@@ -119,6 +194,13 @@ public class Prodavac implements OpstiDomenskiObjekat{
         return sifra;
     }
 
+	/**
+     * Postavlja sifru prodavca koja se koristi za prijavu.
+     *
+     * @param sifra sifra, ne sme biti null, prazna ili duza od 50 karaktera
+     * @throws NullPointerException ako je sifra null
+     * @throws IllegalArgumentException ako je sifra prazna ili duza od 50 karaktera
+     */
 	public void setSifra(String sifra) {
 
 		if (sifra == null)
@@ -134,6 +216,15 @@ public class Prodavac implements OpstiDomenskiObjekat{
         return email;
     }
 
+	/**
+     * Postavlja email prodavca.
+     *
+     * @param email email, ne sme biti null, prazan, duzi od 50 karaktera
+     *              ili u neispravnom formatu
+     * @throws NullPointerException ako je email null
+     * @throws IllegalArgumentException ako je email prazan, duzi od 50 karaktera
+     *                                   ili nije u ispravnom formatu
+     */
 	public void setEmail(String email) {
 		if (email == null)
 			throw new NullPointerException("Email ne sme biti null.");
@@ -146,12 +237,26 @@ public class Prodavac implements OpstiDomenskiObjekat{
 		this.email = email;
 	}
 
+    /**
+     * Vraca tekstualnu reprezentaciju prodavca koja sadrzi korisnicko ime.
+     *
+     * @return korisnicko ime prodavca
+     */
     @Override
     public String toString() {
         return  korisnickoIme;
     }
 
 
+    /**
+     * Poredi ovog prodavca sa drugim objektom na osnovu korisnickog imena.
+     * Ovo je specificno za prodavca jer se prijava u sistem vrsi
+     * preko korisnickog imena.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return true ako su prodavci istog tipa i imaju isto korisnickoIme, false ako je
+     *         obj null, ako je obj drugog tipa, ili ako se korisnickoIme razlikuje
+     */
     @Override
     public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -160,11 +265,22 @@ public class Prodavac implements OpstiDomenskiObjekat{
     return this.korisnickoIme != null && this.korisnickoIme.equals(p.korisnickoIme);
 }
 
+    /**
+     * Vraca hash kod prodavca racunat na osnovu korisnickog imena,
+     * u skladu sa atributom koji koristi {@link #equals(Object)}.
+     *
+     * @return hash kod prodavca
+     */
     @Override
     public int hashCode() {
     return korisnickoIme != null ? korisnickoIme.hashCode() : 0;
     }
 
+    /**
+     * Vraca naziv tabele "prodavac" u bazi podataka.
+     *
+     * @return naziv tabele "prodavac"
+     */
     @Override
     public String vratiNazivTabele() {
         return "prodavac";

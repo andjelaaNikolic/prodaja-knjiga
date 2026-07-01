@@ -1,5 +1,3 @@
-
-
 package model;
 
 import java.sql.ResultSet;
@@ -10,19 +8,40 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-
+/**
+ * Predstavlja vezu izmedju prodavca i strucne spreme koju je prodavac stekao,
+ * zajedno sa podacima o datumu, instituciji i gradu sticanja.
+ *
+ *@author Andjela
+ * @see Prodavac
+ * @see StrSprema
+ */
 public class PrSS implements OpstiDomenskiObjekat{
     
+    /** Strucna sprema koju je prodavac stekao, ne sme biti null. */
     private StrSprema strSprema;
+    /** Prodavac koji je stekao strucnu spremu, ne sme biti null. */
     private Prodavac prodavac;
+    /** Datum sticanja strucne spreme, ne sme biti u buducnosti. */
     private Date datumSticanja;
+    /** Institucija u kojoj je strucna sprema stecena. */
     private String institucija;
+    /** Grad u kojem je strucna sprema stecena. */
     private String grad;
 
     public PrSS() {
     }
     
     
+    /**
+     * Konstruktor koji inicijalizuje sve atribute veze prodavac-strucna sprema.
+     *
+     * @param strSprema strucna sprema koju je prodavac stekao
+     * @param prodavac prodavac koji je stekao strucnu spremu
+     * @param datumSticanja datum sticanja strucne spreme
+     * @param institucija institucija u kojoj je strucna sprema stecena
+     * @param grad grad u kojem je strucna sprema stecena
+     */
     public PrSS(StrSprema strSprema, Prodavac prodavac, Date datumSticanja, String institucija, String grad) {
         this.strSprema = strSprema;
         this.prodavac = prodavac;
@@ -35,6 +54,12 @@ public class PrSS implements OpstiDomenskiObjekat{
         return strSprema;
     }
 
+    /**
+     * Postavlja strucnu spremu koju je prodavac stekao.
+     *
+     * @param strSprema strucna sprema, ne sme biti null
+     * @throws NullPointerException ako je strSprema null
+     */
     public void setStrSprema(StrSprema strSprema) {
     	if(strSprema==null)
     		throw new NullPointerException("Stručna sprema ne sme biti null.");
@@ -45,6 +70,12 @@ public class PrSS implements OpstiDomenskiObjekat{
         return prodavac;
     }
 
+    /**
+     * Postavlja prodavca koji je stekao strucnu spremu.
+     *
+     * @param prodavac prodavac, ne sme biti null
+     * @throws NullPointerException ako je prodavac null
+     */
     public void setProdavac(Prodavac prodavac) {
     	if(prodavac==null)
     		throw new NullPointerException("Prodavac ne sme biti null.");
@@ -55,6 +86,13 @@ public class PrSS implements OpstiDomenskiObjekat{
         return datumSticanja;
     }
 
+    /**
+     * Postavlja datum sticanja strucne spreme.
+     *
+     * @param datumSticanja datum sticanja, ne sme biti null niti u buducnosti
+     * @throws NullPointerException ako je datumSticanja null
+     * @throws IllegalArgumentException ako je datumSticanja u buducnosti
+     */
     public void setDatumSticanja(Date datumSticanja) {
     	if (datumSticanja == null)
             throw new NullPointerException("Datum sticanja ne sme biti null.");
@@ -67,6 +105,13 @@ public class PrSS implements OpstiDomenskiObjekat{
         return institucija;
     }
 
+    /**
+     * Postavlja instituciju u kojoj je strucna sprema stecena.
+     *
+     * @param institucija institucija, ne sme biti null, prazna ili duza od 50 karaktera
+     * @throws NullPointerException ako je institucija null
+     * @throws IllegalArgumentException ako je institucija prazna ili duza od 50 karaktera
+     */
     public void setInstitucija(String institucija) {
     	if(institucija==null) 
     		throw new NullPointerException("Institucija ne sme biti null.");
@@ -83,6 +128,15 @@ public class PrSS implements OpstiDomenskiObjekat{
         return grad;
     }
 
+    /**
+     * Postavlja grad u kojem je strucna sprema stecena.
+     *
+     * @param grad grad, ne sme biti null, prazan, duzi od 50 karaktera
+     *             ili sadrzati znakove koji nisu slova
+     * @throws NullPointerException ako je grad null
+     * @throws IllegalArgumentException ako je grad prazan, duzi od 50 karaktera
+     *                                   ili sadrzi znakove koji nisu slova
+     */
     public void setGrad(String grad) {
     	if(grad==null)
     		throw new NullPointerException("Grad ne sme biti null.");
@@ -95,12 +149,26 @@ public class PrSS implements OpstiDomenskiObjekat{
         this.grad = grad;
     }
 
+    /**
+     * Vraca konstantan hash kod, posto ova klasa nema prirodan jedinstveni atribut
+     * pogodan za hesiranje.
+     *
+     * @return konstantan hash kod
+     */
     @Override
     public int hashCode() {
         int hash = 7;
         return hash;
     }
 
+    /**
+     * Poredi ovu vezu prodavac-strucna sprema sa drugim objektom na osnovu
+     * institucije, grada, strucne spreme, prodavca i datuma sticanja.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return true ako su sve navedene vrednosti jednake, false ako je
+     *         obj null, ako je obj drugog tipa, ili ako se neka od vrednosti razlikuje
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -128,11 +196,21 @@ public class PrSS implements OpstiDomenskiObjekat{
         return Objects.equals(this.datumSticanja, other.datumSticanja);
     }
 
+    /**
+     * Vraca tekstualnu reprezentaciju veze prodavac-strucna sprema sa svim atributima.
+     *
+     * @return string sa svim atributima
+     */
     @Override
     public String toString() {
         return "PrSS{" + "strSprema=" + strSprema + ", prodavac=" + prodavac + ", datumSticanja=" + datumSticanja + ", institucija=" + institucija + ", grad=" + grad + '}';
     }
 
+    /**
+     * Vraca naziv tabele "prss" u bazi podataka.
+     *
+     * @return naziv tabele "prss"
+     */
     @Override
     public String vratiNazivTabele() {
        return "prss";
@@ -235,3 +313,4 @@ public class PrSS implements OpstiDomenskiObjekat{
     
     
 }
+

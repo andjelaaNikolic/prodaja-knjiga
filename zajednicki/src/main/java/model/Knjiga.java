@@ -1,4 +1,3 @@
-
 package model;
 
 import java.sql.ResultSet;
@@ -7,22 +6,52 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Predstavlja knjigu koja se prodaje i cuva u odredjenom magacinu.
+ *
+ *@author Andjela
+ * @see Magacin
+ * @see StavkaRacuna
+ */
 public class Knjiga implements OpstiDomenskiObjekat {
     
+    /** Jedinstveni identifikator knjige. */
     private int idKnjiga;
+    
+    /** Naslov knjige. */
+    
     private String naslov;
+    
+    /** Zanr knjige. */
     private String zanr;
+    
+    /** Godina izdanja knjige. */
     private int godinaIzdanja;
+    
+    /** Cena knjige. */
     private double cena;
     
+    /** Kolicina knjige dostupna u magacinu. */
     private int kolicina;
+    
+    /** Magacin u kojem se knjiga cuva, ne sme biti null. */
     private Magacin magacin;
 
     public Knjiga() {
     }
 
       
+    /**
+     * Konstruktor koji inicijalizuje sve atribute knjige ukljucujuci i ID.
+     *
+     * @param idKnjiga jedinstveni identifikator knjige
+     * @param naslov naslov knjige
+     * @param zanr zanr knjige
+     * @param godinaIzdanja godina izdanja knjige
+     * @param cena cena knjige
+     * @param kolicina kolicina knjige dostupna u magacinu
+     * @param magacin magacin u kojem se knjiga cuva
+     */
     public Knjiga(int idKnjiga, String naslov, String zanr, int godinaIzdanja, double cena, int kolicina,Magacin magacin) {
         setIdKnjiga(idKnjiga);
         setNaslov(naslov);
@@ -34,6 +63,17 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
     
 
+    /**
+     * Konstruktor koji inicijalizuje atribute knjige bez ID-a.
+     * Koristi se prilikom kreiranja nove knjige pre unosa u bazu podataka.
+     *
+     * @param naslov naslov knjige
+     * @param zanr zanr knjige
+     * @param godinaIzdanja godina izdanja knjige
+     * @param cena cena knjige
+     * @param kolicina kolicina knjige dostupna u magacinu
+     * @param magacin magacin u kojem se knjiga cuva
+     */
     public Knjiga(String naslov, String zanr, int godinaIzdanja, double cena, int kolicina, Magacin magacin) {
         setNaslov(naslov);
         setZanr(zanr);
@@ -48,6 +88,12 @@ public class Knjiga implements OpstiDomenskiObjekat {
         return idKnjiga;
     }
 
+    /**
+     * Postavlja jedinstveni identifikator knjige.
+     *
+     * @param idKnjiga jedinstveni identifikator knjige, mora biti veci od nule
+     * @throws IllegalArgumentException ako je idKnjiga manji ili jednak nuli
+     */
     public void setIdKnjiga(int idKnjiga) {
     	if(idKnjiga<=0)
     		throw new IllegalArgumentException("ID knjige mora biti veći od nule.");
@@ -58,6 +104,13 @@ public class Knjiga implements OpstiDomenskiObjekat {
         return naslov;
     }
 
+    /**
+     * Postavlja naslov knjige.
+     *
+     * @param naslov naslov knjige, ne sme biti null, prazan ili sadrzati vise od 50 karaktera
+     * @throws NullPointerException ako je naslov null
+     * @throws IllegalArgumentException ako je naslov prazan ili duzi od 50 karaktera
+     */
     public void setNaslov(String naslov) {
     	if(naslov==null)
     		throw new NullPointerException("Naslov ne sme biti null.");
@@ -72,6 +125,13 @@ public class Knjiga implements OpstiDomenskiObjekat {
         return zanr;
     }
 
+    /**
+     * Postavlja zanr knjige.
+     *
+     * @param zanr zanr knjige, ne sme biti null, prazan ili sadrzati vise od 20 karaktera
+     * @throws NullPointerException ako je zanr null
+     * @throws IllegalArgumentException ako je zanr prazan ili duzi od 20 karaktera
+     */
     public void setZanr(String zanr) {
     	if(zanr==null)
     		throw new NullPointerException("Žanr ne sme biti null.");
@@ -86,6 +146,13 @@ public class Knjiga implements OpstiDomenskiObjekat {
         return godinaIzdanja;
     }
 
+    /**
+     * Postavlja godinu izdanja knjige.
+     *
+     * @param godinaIzdanja godina izdanja knjige, mora biti veca od nule i ne sme biti u buducnosti
+     * @throws IllegalArgumentException ako je godinaIzdanja manja ili jednaka nuli, ili
+     *                                   ako je veca od trenutne godine
+     */
     public void setGodinaIzdanja(int godinaIzdanja) {
     	if(godinaIzdanja<=0)
     		throw new IllegalArgumentException("Godina izdanja mora biti veća od nule.");
@@ -103,6 +170,12 @@ public class Knjiga implements OpstiDomenskiObjekat {
         return cena;
     }
 
+    /**
+     * Postavlja cenu knjige.
+     *
+     * @param cena cena knjige, mora biti veca od nule
+     * @throws IllegalArgumentException ako je cena manja ili jednaka nuli
+     */
     public void setCena(double cena) {
     	
     	if(cena<=0)
@@ -115,6 +188,12 @@ public class Knjiga implements OpstiDomenskiObjekat {
         return kolicina;
     }
 
+    /**
+     * Postavlja kolicinu knjige dostupnu u magacinu.
+     *
+     * @param kolicina kolicina knjige, ne sme biti negativna
+     * @throws IllegalArgumentException ako je kolicina negativna
+     */
     public void setKolicina(int kolicina) {
     	if(kolicina<0)
     		throw new IllegalArgumentException("Količina ne sme biti negativna.");
@@ -125,6 +204,12 @@ public class Knjiga implements OpstiDomenskiObjekat {
         return magacin;
     }
 
+    /**
+     * Postavlja magacin u kojem se cuva knjiga.
+     *
+     * @param magacin magacin u kojem se cuva knjiga, ne sme biti null
+     * @throws NullPointerException ako je magacin null
+     */
     public void setMagacin(Magacin magacin) {
     	if(magacin==null)
     		throw new NullPointerException("Magacin ne sme biti null.");
@@ -132,18 +217,35 @@ public class Knjiga implements OpstiDomenskiObjekat {
     }
     
 
+    /**
+     * Vraca tekst koji sadrzi naslovom i cenu knjige.
+     *
+     * @return string sa naslovom i cenom knjige
+     */
     @Override
     public String toString() {
         return  "naslov=" +naslov +", cena="+cena;
     }
 
+    /**
+     * Vraca hash kod knjige racunat na osnovu godine izdanja, naslova i zanra.
+     *
+     * @return hash kod knjige
+     */
     @Override
 	public int hashCode() {
 		return Objects.hash(godinaIzdanja, naslov, zanr);
 	}
 
 
-    @Override
+    /**
+     * Poredi ovu knjigu sa drugim objektom na osnovu godine izdanja, naslova i zanra.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return true ako su knjige istog tipa i imaju istu godinaIzdanja, naslov i zanr,
+     *         false ako je obj null, ako je obj drugog tipa, ili ako se neki od tih atributa razlikuju
+     */
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -156,6 +258,11 @@ public class Knjiga implements OpstiDomenskiObjekat {
 				&& Objects.equals(zanr, other.zanr);
 	}
 
+	/**
+     * Vraca naziv tabele "knjiga" u bazi podataka.
+     *
+     * @return naziv tabele "knjiga"
+     */
 	@Override
     public String vratiNazivTabele() {
        return "knjiga";
@@ -238,4 +345,5 @@ public class Knjiga implements OpstiDomenskiObjekat {
     
     
 }
+
 

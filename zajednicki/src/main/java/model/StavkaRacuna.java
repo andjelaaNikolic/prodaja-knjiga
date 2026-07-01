@@ -1,4 +1,3 @@
-
 package model;
 
 import java.sql.ResultSet;
@@ -7,20 +6,43 @@ import java.util.Objects;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+/**
+ * Predstavlja stavku racuna koja opisuje jednu kupljenu knjigu
+ * u okviru racuna, zajedno sa kolicinom, jedinicnom cenom i ukupnim iznosom stavke.
+ *
+ *@author Andjela
+ * @see Racun
+ * @see Knjiga
+ */
 public class StavkaRacuna implements OpstiDomenskiObjekat {
     
+    /** Redni broj stavke u okviru racuna. */
     private int rb;
+    /** Kolicina kupljene knjige u okviru ove stavke. */
     private int kolicina;
+    /** Kupljena knjiga u okviru ove stavke, ne sme biti null. */
     private Knjiga knjiga;
+    /** Ukupan iznos za ovu stavku. */
     private double iznos;
+    /** Racun u okviru kojeg se nalazi ova stavka, ne sme biti null. */
     private Racun racun;
+    /** Jedinicna cena knjige u trenutku kupovine. */
     private double jedinicnaCena;
 
     public StavkaRacuna() {
     }
     
 
+    /**
+     * Konstruktor koji inicijalizuje sve atribute stavke racuna.
+     *
+     * @param rb redni broj stavke u okviru racuna
+     * @param kolicina kolicina kupljene knjige
+     * @param knjiga kupljena knjiga
+     * @param iznos ukupan iznos stavke
+     * @param racun racun kojem stavka pripada
+     * @param jedinicnaCena jedinicna cena knjige u trenutku kupovine
+     */
     public StavkaRacuna(int rb, int kolicina, Knjiga knjiga, double iznos, Racun racun, double jedinicnaCena) {
     	setRb(rb);
     	setKolicina(kolicina);
@@ -37,6 +59,12 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
         return jedinicnaCena;
     }
 
+    /**
+     * Postavlja jedinicnu cenu knjige u trenutku kupovine.
+     *
+     * @param jedinicnaCena jedinicna cena, mora biti veca od nule
+     * @throws IllegalArgumentException ako je jedinicnaCena manja ili jednaka nuli
+     */
     public void setJedinicnaCena(double jedinicnaCena) {
     	if(jedinicnaCena<=0)
     		throw new IllegalArgumentException("Jedinična cena mora biti veća od nule.");
@@ -49,6 +77,12 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
         return racun;
     }
 
+    /**
+     * Postavlja racun kojem stavka pripada.
+     *
+     * @param racun racun, ne sme biti null
+     * @throws NullPointerException ako je racun null
+     */
     public void setRacun(Racun racun) {
     	if(racun==null)
     		throw new NullPointerException("Račun ne sme biti null.");
@@ -60,6 +94,12 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
         return rb;
     }
 
+    /**
+     * Postavlja redni broj stavke u okviru racuna.
+     *
+     * @param rb redni broj stavke, mora biti veci od nule
+     * @throws IllegalArgumentException ako je rb manji ili jednak nuli
+     */
     public void setRb(int rb) {
     	if(rb<=0)
     		throw new IllegalArgumentException("Redni broj mora biti veći od nule.");
@@ -70,6 +110,12 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
         return kolicina;
     }
 
+    /**
+     * Postavlja kolicinu kupljene knjige u okviru ove stavke.
+     *
+     * @param kolicina kolicina, mora biti veca od nule
+     * @throws IllegalArgumentException ako je kolicina manja ili jednaka nuli
+     */
     public void setKolicina(int kolicina) {
     	if(kolicina<=0)
     		throw new IllegalArgumentException("Količina mora biti veća od nule.");
@@ -80,6 +126,12 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
         return knjiga;
     }
 
+    /**
+     * Postavlja kupljenu knjigu u okviru ove stavke.
+     *
+     * @param knjiga knjiga, ne sme biti null
+     * @throws NullPointerException ako je knjiga null
+     */
     public void setKnjiga(Knjiga knjiga) {
     	if(knjiga==null)
     		throw new NullPointerException("Knjiga ne sme biti null.");
@@ -90,23 +142,47 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
         return iznos;
     }
 
+    /**
+     * Postavlja ukupan iznos za ovu stavku.
+     *
+     * @param iznos ukupan iznos, mora biti veci od nule
+     * @throws IllegalArgumentException ako je iznos manji ili jednak nuli
+     */
     public void setIznos(double iznos) {
     	if(iznos<=0)
     		throw new IllegalArgumentException("Iznos mora biti veći od nule.");
         this.iznos = iznos;
     }
 
+    /**
+     * Vraca tekstualnu reprezentaciju stavke racuna sa svim atributima.
+     *
+     * @return string sa svim atributima stavke
+     */
     @Override
     public String toString() {
         return "rb=" + rb + ", kolicina=" + kolicina + ", knjiga=" + knjiga + ", iznos=" + iznos;
     }
 
+    /**
+     * Vraca konstantan hash kod, posto ova klasa nema prirodan jedinstveni atribut
+     * pogodan za hesiranje.
+     *
+     * @return konstantan hash kod
+     */
     @Override
     public int hashCode() {
         int hash = 7;
         return hash;
     }
 
+    /**
+     * Poredi ovu stavku racuna sa drugim objektom na osnovu kupljene knjige.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return true ako su stavke istog tipa i imaju istu knjigu, false ako je
+     *         obj null, ako je obj drugog tipa, ili ako se knjiga razlikuje
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -124,11 +200,26 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
 
     
 
+    /**
+     * Vraca naziv tabele "stavka_racuna" u bazi podataka.
+     *
+     * @return naziv tabele "stavka_racuna"
+     */
     @Override
     public String vratiNazivTabele() {
         return "stavka_racuna";
     }
 
+    /**
+     * Vraca listu stavki racuna kreiranih na osnovu podataka iz ResultSet-a.
+     * Svaka stavka se kreira sa racunom koji ima postavljen samo ID - ostali
+     * podaci o racunu (kupac, prodavac, ukupan iznos) se ne ucitavaju.
+     *
+     * @param rs ResultSet objekat koji sadrzi podatke iz baze
+     * @return lista stavki racuna kreiranih iz ResultSet-a, ili null
+     *         ako dodje do greske pri citanju podataka
+     * @throws Exception ako dodje do greske pri citanju podataka iz ResultSet-a
+     */
     @Override
     public List<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         try {
@@ -189,6 +280,16 @@ public class StavkaRacuna implements OpstiDomenskiObjekat {
        return "racun = " + racun.getIdRacun() + " AND rb = " + rb;
     }
 
+    /**
+     * Vraca jednu stavku racuna kreiranu na osnovu podataka iz ResultSet-a.
+     * Stavka se kreira sa racunom koji ima postavljen samo ID - ostali
+     * podaci o racunu (kupac, prodavac, ukupan iznos) se ne ucitavaju.
+     *
+     * @param rs ResultSet objekat koji sadrzi podatke iz baze
+     * @return objekat stavke racuna kreiran iz ResultSet-a, ili null
+     *         ako dodje do greske pri citanju podataka
+     * @throws Exception ako dodje do greske pri citanju podataka iz ResultSet-a
+     */
     @Override
     public OpstiDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
         try {

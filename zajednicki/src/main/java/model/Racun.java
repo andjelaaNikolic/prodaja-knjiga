@@ -11,19 +11,43 @@ import java.util.List;
 import java.util.Objects;
 import java.sql.SQLException;
 
-
+/**
+ * Predstavlja racun koji je prodavac izdao kupcu.
+ * Sadrzi listu stavki racuna koje opisuju koje knjige su kupljene i u
+ * kojoj kolicini, kao i ukupan iznos racuna.
+ *
+ *@author Andjela
+ * @see StavkaRacuna
+ * @see Kupac
+ * @see Prodavac
+ */
 public class Racun implements OpstiDomenskiObjekat {
     
+    /** Jedinstveni identifikator racuna u bazi podataka. */
     private int idRacun;
+    /** Datum izdavanja racuna, ne sme biti u buducnosti. */
     private Date datum;
+    /** Ukupan iznos racuna. */
     private double ukupanIznos;
+    /** Prodavac koji je izdao racun, ne sme biti null. */
     private Prodavac prodavac;
+    /** Kupac kojem je racun izdat, ne sme biti null. */
     private Kupac kupac;
+    /** Lista stavki koje opisuju kupljene knjige u okviru ovog racuna. */
     private List<StavkaRacuna> stavke= new ArrayList<>();
 
     public Racun() {
     }
     
+    /**
+     * Konstruktor koji inicijalizuje atribute racuna bez ID-a.
+     * Koristi se prilikom kreiranja novog racuna pre unosa u bazu podataka.
+     *
+     * @param datum datum izdavanja racuna
+     * @param ukupanIznos ukupan iznos racuna
+     * @param prodavac prodavac koji je izdao racun
+     * @param kupac kupac kojem je racun izdat
+     */
 	public Racun(Date datum, double ukupanIznos, Prodavac prodavac, Kupac kupac) {
 		setDatum(datum);
 		setUkupanIznos(ukupanIznos);
@@ -32,6 +56,15 @@ public class Racun implements OpstiDomenskiObjekat {
 
 	}
 
+	/**
+     * Konstruktor koji inicijalizuje sve atribute racuna ukljucujuci i ID.
+     *
+     * @param idRacun jedinstveni identifikator racuna
+     * @param datum datum izdavanja racuna
+     * @param ukupanIznos ukupan iznos racuna
+     * @param prodavac prodavac koji je izdao racun
+     * @param kupac kupac kojem je racun izdat
+     */
 	public Racun(int idRacun, Date datum, double ukupanIznos, Prodavac prodavac, Kupac kupac) {
 		setIdRacun(idRacun);
 		setDatum(datum);
@@ -41,6 +74,11 @@ public class Racun implements OpstiDomenskiObjekat {
 
 	}
 
+    /**
+     * Vraca naziv tabele "racun" u bazi podataka.
+     *
+     * @return naziv tabele "racun"
+     */
     @Override
     public String vratiNazivTabele() {
        return "racun";
@@ -147,6 +185,12 @@ public class Racun implements OpstiDomenskiObjekat {
         return idRacun;
     }
 
+    /**
+     * Postavlja jedinstveni identifikator racuna.
+     *
+     * @param idRacun jedinstveni identifikator racuna, mora biti veci od nule
+     * @throws IllegalArgumentException ako je idRacun manji ili jednak nuli
+     */
     public void setIdRacun(int idRacun) {
     	if(idRacun<=0)
     		throw new IllegalArgumentException("ID računa mora biti veći od nule.");
@@ -157,6 +201,13 @@ public class Racun implements OpstiDomenskiObjekat {
         return datum;
     }
 
+    /**
+     * Postavlja datum izdavanja racuna.
+     *
+     * @param datum datum izdavanja racuna, ne sme biti null niti u buducnosti
+     * @throws NullPointerException ako je datum null
+     * @throws IllegalArgumentException ako je datum u buducnosti
+     */
     public void setDatum(Date datum) {
         if(datum==null)
         	throw new NullPointerException("Datum ne sme biti null.");
@@ -170,6 +221,12 @@ public class Racun implements OpstiDomenskiObjekat {
         return ukupanIznos;
     }
 
+    /**
+     * Postavlja ukupan iznos racuna.
+     *
+     * @param ukupanIznos ukupan iznos racuna, mora biti veci od nule
+     * @throws IllegalArgumentException ako je ukupanIznos manji ili jednak nuli
+     */
     public void setUkupanIznos(double ukupanIznos) {
     	if(ukupanIznos<=0)
     		throw new IllegalArgumentException("Ukupan iznos mora biti veći od nule.");
@@ -180,6 +237,12 @@ public class Racun implements OpstiDomenskiObjekat {
         return prodavac;
     }
 
+    /**
+     * Postavlja prodavca koji je izdao racun.
+     *
+     * @param prodavac prodavac, ne sme biti null
+     * @throws NullPointerException ako je prodavac null
+     */
     public void setProdavac(Prodavac prodavac) {
     	if(prodavac==null)
     		throw new NullPointerException("Prodavac ne sme biti null.");
@@ -190,6 +253,12 @@ public class Racun implements OpstiDomenskiObjekat {
         return kupac;
     }
 
+    /**
+     * Postavlja kupca kojem je racun izdat.
+     *
+     * @param kupac kupac, ne sme biti null
+     * @throws NullPointerException ako je kupac null
+     */
     public void setKupac(Kupac kupac) {
     	if(kupac==null)
     		throw new NullPointerException("Kupac ne sme biti null.");

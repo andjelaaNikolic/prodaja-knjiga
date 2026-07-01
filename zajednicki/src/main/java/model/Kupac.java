@@ -1,4 +1,3 @@
-
 package model;
 
 import java.sql.ResultSet;
@@ -7,17 +6,43 @@ import java.util.List;
 import java.util.Objects;
 import java.sql.SQLException;
 
-
+/**
+ * Predstavlja kupca koji kupuje knjige.
+ * Sadrzi osnovne podatke o kupcu i mesto u kojem zivi.
+ * 
+ * @author Andjela
+ *
+ * @see Mesto
+ * @see Racun
+ */
 public class Kupac implements OpstiDomenskiObjekat{
+    /** Jedinstveni identifikator kupca u bazi podataka. */
     private int idKupac;
+    
+    /** Ime kupca. */
     private String ime;
+    
+    /** Prezime kupca. */
     private String prezime;
+    
+    /** Broj telefona kupca. */
     private String brojTelefona;
+    
+    /** Mesto u kojem kupac zivi, ne sme biti null. */
     private Mesto mesto;
 
     public Kupac() {
     }
     
+    /**
+     * Konstruktor koji inicijalizuje atribute kupca bez ID-a.
+     * Koristi se prilikom kreiranja novog kupca pre unosa u bazu podataka.
+     *
+     * @param ime ime kupca
+     * @param prezime prezime kupca
+     * @param brojTelefona broj telefona kupca
+     * @param mesto mesto u kojem kupac zivi
+     */
     public Kupac( String ime, String prezime, String brojTelefona, Mesto mesto) {
     	setIme(ime);
     	setPrezime(prezime);
@@ -26,6 +51,15 @@ public class Kupac implements OpstiDomenskiObjekat{
     }
 
 
+    /**
+     * Konstruktor koji inicijalizuje sve atribute kupca ukljucujuci i ID.
+     *
+     * @param idKupac jedinstveni identifikator kupca
+     * @param ime ime kupca
+     * @param prezime prezime kupca
+     * @param brojTelefona broj telefona kupca
+     * @param mesto mesto u kojem kupac zivi
+     */
     public Kupac(int idKupac, String ime, String prezime, String brojTelefona, Mesto mesto) {
     	setIdKupac(idKupac);
     	setIme(ime);
@@ -38,6 +72,12 @@ public class Kupac implements OpstiDomenskiObjekat{
         return idKupac;
     }
 
+    /**
+     * Postavlja jedinstveni identifikator kupca.
+     *
+     * @param idKupac jedinstveni identifikator kupca, mora biti veci od nule
+     * @throws IllegalArgumentException ako je idKupac manji ili jednak nuli
+     */
     public void setIdKupac(int idKupac) {
     	if(idKupac<=0) {
     		throw new IllegalArgumentException("ID kupca mora biti veći od nule.");
@@ -49,6 +89,15 @@ public class Kupac implements OpstiDomenskiObjekat{
         return ime;
     }
 
+    /**
+     * Postavlja ime kupca.
+     *
+     * @param ime ime kupca, ne sme biti null, prazno, duze od 50 karaktera
+     *            ili sadrzati znakove koji nisu slova
+     * @throws NullPointerException ako je ime null
+     * @throws IllegalArgumentException ako je ime prazno, duze od 50 karaktera
+     *                                   ili sadrzi znakove koji nisu slova
+     */
     public void setIme(String ime) {
     	if(ime==null) {
     		throw new NullPointerException("Ime ne sme biti null.");
@@ -69,6 +118,15 @@ public class Kupac implements OpstiDomenskiObjekat{
         return prezime;
     }
 
+    /**
+     * Postavlja prezime kupca.
+     *
+     * @param prezime prezime kupca, ne sme biti null, prazno, duze od 50 karaktera
+     *                ili sadrzati znakove koji nisu slova
+     * @throws NullPointerException ako je prezime null
+     * @throws IllegalArgumentException ako je prezime prazno, duze od 50 karaktera
+     *                                   ili sadrzi znakove koji nisu slova
+     */
     public void setPrezime(String prezime) {
     	if(prezime==null) 
     		throw new NullPointerException("Prezime ne sme biti null.");
@@ -89,6 +147,15 @@ public class Kupac implements OpstiDomenskiObjekat{
         return brojTelefona;
     }
 
+    /**
+     * Postavlja broj telefona kupca.
+     *
+     * @param brojTelefona broj telefona kupca, ne sme biti null, prazan, duzi od 10
+     *                     cifara ili sadrzati znakove koji nisu cifre
+     * @throws NullPointerException ako je brojTelefona null
+     * @throws IllegalArgumentException ako je brojTelefona prazan, duzi od 10 cifara
+     *                                   ili sadrzi znakove koji nisu cifre
+     */
     public void setBrojTelefona(String brojTelefona) {
     	if(brojTelefona==null) {
     		throw new NullPointerException("Broj telefona ne sme biti null.");
@@ -109,17 +176,33 @@ public class Kupac implements OpstiDomenskiObjekat{
         return mesto;
     }
 
+    /**
+     * Postavlja mesto u kojem kupac zivi.
+     *
+     * @param mesto mesto u kojem kupac zivi, ne sme biti null
+     * @throws NullPointerException ako je mesto null
+     */
     public void setMesto(Mesto mesto) {
     	if(mesto==null)
     		throw new NullPointerException("Mesto ne sme biti null.");
         this.mesto = mesto;
     }
 
+    /**
+     * Vraca tekstualnu reprezentaciju kupca koja sadrzi ID, ime i prezime.
+     *
+     * @return string sa ID-om, imenom i prezimenom kupca
+     */
     @Override
     public String toString() {
         return  "id=" + idKupac + ", ime i prezime=" + ime + " " + prezime ;
     }
 
+    /**
+     * Vraca hash kod kupca racunat na osnovu broja telefona, imena i prezimena.
+     *
+     * @return hash kod kupca
+     */
     @Override
 	public int hashCode() {
 		return Objects.hash(brojTelefona, ime, prezime);
@@ -127,7 +210,14 @@ public class Kupac implements OpstiDomenskiObjekat{
 
 
 
-    @Override
+    /**
+     * Poredi ovog kupca sa drugim objektom na osnovu broja telefona, imena i prezimena.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return true ako su kupci istog tipa i imaju isti brojTelefona, ime i prezime,
+     *         false ako je obj null, ako je obj drugog tipa, ili ako se neki od tih atributa razlikuju
+     */
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -140,6 +230,11 @@ public class Kupac implements OpstiDomenskiObjekat{
 				&& Objects.equals(prezime, other.prezime);
 	}
 
+	/**
+     * Vraca naziv tabele "kupac" u bazi podataka.
+     *
+     * @return naziv tabele "kupac"
+     */
 	@Override
     public String vratiNazivTabele() {
         return "kupac";
